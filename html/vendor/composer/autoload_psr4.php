@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'SpotifyWebAPI\\' => array($vendorDir . '/jwilsson/spotify-web-api-php/src'),
+    'LINE\\' => array($vendorDir . '/linecorp/line-bot-sdk/src'),
 );

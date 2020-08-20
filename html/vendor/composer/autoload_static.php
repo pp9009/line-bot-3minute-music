@@ -11,12 +11,20 @@ class ComposerStaticInita14164322ab63c383e020ee4e2f21969
         array (
             'SpotifyWebAPI\\' => 14,
         ),
+        'L' => 
+        array (
+            'LINE\\' => 5,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'SpotifyWebAPI\\' => 
         array (
             0 => __DIR__ . '/..' . '/jwilsson/spotify-web-api-php/src',
+        ),
+        'LINE\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/linecorp/line-bot-sdk/src',
         ),
     );
 
