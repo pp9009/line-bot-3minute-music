@@ -2,7 +2,7 @@
 require(__DIR__ . './../vendor/autoload.php');
 include(__DIR__ . '/include.php');
 
-$search_result = execSearchApi(getRandomSearch(),'track',['market' => 'JP']);
+$search_result = execSearchApi(getRandomSearch(), 'track', ['market' => 'JP']);
 //$search_result = execSearchApi('%punpee%', 'track', ['market' => 'JP']);
 save3minuteTrack($db, $search_result->tracks);
 
@@ -14,14 +14,13 @@ while (!is_null($next_url)) {
 
     $next_url = $result_obj->tracks->next;
 }
-
 $db = null;
 
 function execSearchApi($q, $type, $option)
 {
     $session = new SpotifyWebAPI\Session(
-        'dca9df02ace44296add570f22148572a',
-        '8d70bd4b992443eaa16af0c8e7fe16dd'
+        Conf::getValue('spotify', 'client.id'),
+        Conf::getValue('spotify', 'client.secret')
     );
     $api = new SpotifyWebAPI\SpotifyWebAPI();
     $session->requestCredentialsToken();
@@ -35,10 +34,9 @@ function execSearchApi($q, $type, $option)
 function execURL($url)
 {
     $session = new SpotifyWebAPI\Session(
-        'dca9df02ace44296add570f22148572a',
-        '8d70bd4b992443eaa16af0c8e7fe16dd'
+        Conf::getValue('spotify', 'client.id'),
+        Conf::getValue('spotify', 'client.secret')
     );
-//    $api = new SpotifyWebAPI\SpotifyWebAPI();
     $session->requestCredentialsToken();
     $accessToken = $session->getAccessToken();
 
@@ -89,7 +87,7 @@ function save3minuteTrack($db, $tracks)
 
         if (isBetweent($item->duration_ms)) {
             $uri = $item->external_urls->spotify;
-            foreach ($item->artists as $artist){
+            foreach ($item->artists as $artist) {
                 $artists .= $artist->name . ',';
             }
             $popularity = $item->popularity;

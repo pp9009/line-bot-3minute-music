@@ -1,7 +1,7 @@
 <?php
 
-$dsn = "mysql:host=mysql;dbname=test_db;";
-$db = new PDO($dsn, 'test', 'test');
+$dsn = 'mysql:host=mysql;dbname=' . Conf::getValue('db', 'db') . ';';
+$db = new PDO($dsn, Conf::getValue('db', 'user'), Conf::getValue('db', 'password'));
 
 $db->exec('create table if not exists music_data(
       id int not null auto_increment primary key,
@@ -38,7 +38,7 @@ class dbUtill
     {
         try {
             if ($jp_flag) {
-                $sql = 'select * from music_data where isrc like '. '"jp%"';
+                $sql = 'select * from music_data where isrc like ' . '"jp%"';
                 $stmt = $db->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
