@@ -10,7 +10,7 @@ $signature = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATUR
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 
 foreach ($events as $event) {
-    // メッセージを返信
+    // メッセージを返信test
     $uri = dbUtill::getMusic($db, true);
 
     $response = $bot->replyMessage(
