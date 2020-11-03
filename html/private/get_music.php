@@ -2,19 +2,22 @@
 require(__DIR__ . './../vendor/autoload.php');
 include(__DIR__ . '/include.php');
 
-$search_result = execSearchApi(getRandomSearch(), 'track', ['market' => 'JP']);
-//$search_result = execSearchApi('%punpee%', 'track', ['market' => 'JP']);
-save3minuteTrack($db, $search_result->tracks);
+function main($db)
+{
+    $search_result = execSearchApi(getRandomSearch(), 'track', ['market' => 'JP']);
+    //$search_result = execSearchApi('%punpee%', 'track', ['market' => 'JP']);
+    saveSelectMinuteTrack($db, $search_result->tracks);
 
-$next_url = $search_result->tracks->next;
-while (!is_null($next_url)) {
-    $next_url_result = execURL($next_url);
-    $result_obj = json_decode(json_encode($next_url_result));
-    save3minuteTrack($db, $result_obj->tracks);
+    $next_url = $search_result->tracks->next;
+    while (!is_null($next_url)) {
+        $next_url_result = execURL($next_url);
+        $result_obj = json_decode(json_encode($next_url_result));
+        saveSelectMinuteTrack($db, $result_obj->tracks);
 
-    $next_url = $result_obj->tracks->next;
+        $next_url = $result_obj->tracks->next;
+    }
+    $db = null;
 }
-$db = null;
 
 function execSearchApi($q, $type, $option)
 {
@@ -71,7 +74,7 @@ function getRandomSearch()
     return $randomSearch;
 }
 
-function save3minuteTrack($db, $tracks)
+function saveSelectMinuteTrack($db, $tracks)
 {
     $items = $tracks->items;
     if (is_null($items)) {
@@ -85,7 +88,8 @@ function save3minuteTrack($db, $tracks)
         $duration_ms = '';
         $isrc = '';
 
-        if (isBetweent($item->duration_ms)) {
+        if (isBetweent($item->duration_ms)
+            && isIsrcJp($item->external_ids->isrc)) {
             $uri = $item->external_urls->spotify;
             foreach ($item->artists as $artist) {
                 $artists .= $artist->name . ',';
@@ -100,8 +104,25 @@ function save3minuteTrack($db, $tracks)
 
 function isBetweent($val)
 {
-    return ($val >= 170000 && $val <= 190000);
+    for ($minute = 1; $minute <= 8; $minute++) {
+        $convert_ms = $minute * 60000;
+        if (($convert_ms - 10000) <= $val && $val <= ($convert_ms + 10000)) {
+            return true;
+        }
+    }
+
+    return false;
 }
+
+function isIsrcJp($isrc)
+{
+    if ('JP' === substr($isrc, 0, 2)) {
+        return true;
+    }
+    return false;
+}
+
+main($db);
 
 
 
