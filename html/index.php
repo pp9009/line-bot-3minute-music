@@ -32,15 +32,5 @@ foreach ($events as $event) {
 
         $uri = dbUtill::getMusic($db, $text, true);
         $response = $bot->replyMessage($event->getReplyToken(), new TextMessageBuilder($uri));
-
-        $quickReply = new QuickReplyMessageBuilder([
-            new QuickReplyButtonBuilder(new MessageTemplateActionBuilder('Sushi', 'Sushi')),
-            new QuickReplyButtonBuilder(new MessageTemplateActionBuilder('Sushi', 'Sushi'))
-        ]);
-        $messageTemplate = new TextMessageBuilder('test text1', $quickReply);
-        $build_message = $messageTemplate->buildMessage();
-
-        $response = $bot->replyMessage(
-            $event->getReplyToken(), $messageTemplate);
     }
 }
