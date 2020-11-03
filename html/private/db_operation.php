@@ -34,13 +34,14 @@ class dbUtill
         }
     }
 
-    public static function getMusic($db, $jp_flag = false)
+    public static function getMusic($db, $text, $jp_flag = false)
     {
         try {
             if ($jp_flag) {
-                $sql = 'select * from music_data where isrc like ' . '"jp%"';
+                $minute = mb_substr($text, 0, 1);
+                $sql = 'select * from music_data where duration_ms between (60000 * ? - 10000) and (60000 * ? + 10000) and isrc like ' . '"jp%"';
                 $stmt = $db->prepare($sql);
-                $stmt->execute();
+                $stmt->execute([$minute, $minute]);
                 $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
             } else {
                 $num = mt_rand(80, 100);
