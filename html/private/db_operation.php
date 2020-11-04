@@ -57,4 +57,18 @@ class dbUtill
             return null;
         }
     }
+
+    public static function deleteMoreThan30dayAgoData($db, $target_day)
+    {
+        try {
+            $sql = "delete from music_data where date_format( ?, '%Y-%m-%d') >= date_format( registdate, '%Y-%m-%d')";
+            $stmt = $db->prepare($sql);
+            $result = $stmt->execute([$target_day]);
+            return $result;
+        } catch (PDOException $e) {
+            var_dump($e);
+            return null;
+        }
+    }
+
 }
