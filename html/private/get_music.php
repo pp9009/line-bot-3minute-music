@@ -107,7 +107,7 @@ function isBetweent($val)
 {
     for ($minute = 1; $minute <= 8; $minute++) {
         $convert_ms = $minute * 60000;
-        if (($convert_ms - 10000) <= $val && $val <= ($convert_ms + 10000)) {
+        if (($convert_ms - 5000) <= $val && $val <= ($convert_ms + 5000)) {
             return true;
         }
     }
