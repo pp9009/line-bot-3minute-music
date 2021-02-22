@@ -39,7 +39,7 @@ class dbUtill
         try {
             if ($jp_flag) {
                 $minute = substr($text, 0, 1);
-                $sql = 'select * from music_data where duration_ms between (60000 * ? - 10000) and (60000 * ? + 10000) and isrc like ' . '"jp%"';
+                $sql = 'select * from music_data where duration_ms between (60000 * ? - 5000) and (60000 * ? + 5000) and isrc like ' . '"jp%"';
                 $stmt = $db->prepare($sql);
                 $stmt->execute([$minute, $minute]);
                 $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
