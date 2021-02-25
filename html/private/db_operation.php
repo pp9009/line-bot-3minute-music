@@ -1,6 +1,6 @@
 <?php
 
-$dsn = 'mysql:host=mysql;dbname=' . Conf::getValue('db', 'db') . ';';
+$dsn = 'mysql:host=mysql;dbname=' . Conf::getValue('db', 'db') . ';charset=utf8mb4';
 $db = new PDO($dsn, Conf::getValue('db', 'user'), Conf::getValue('db', 'password'));
 
 $db->exec('create table if not exists music_data(
