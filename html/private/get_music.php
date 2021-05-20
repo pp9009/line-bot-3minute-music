@@ -4,7 +4,7 @@ include(__DIR__ . '/include.php');
 
 function main($db)
 {
-    deleteData($db);
+//    deleteData($db);
     $search_result = execSearchApi(getRandomSearch(), 'track', ['market' => 'JP']);
     //$search_result = execSearchApi('%punpee%', 'track', ['market' => 'JP']);
     saveSelectMinuteTrack($db, $search_result->tracks);
