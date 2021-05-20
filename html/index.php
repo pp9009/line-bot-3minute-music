@@ -1,5 +1,8 @@
 <?php
 
+use LINE\LINEBot;
+use LINE\LINEBot\Constant\HTTPHeader;
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\QuickReplyBuilder\ButtonBuilder\QuickReplyButtonBuilder;
 use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
@@ -8,9 +11,9 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 require(__DIR__ . '/vendor/autoload.php');
 include(__DIR__ . '/private/include.php');
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(Conf::getValue('line', 'channel.access.token'));
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => Conf::getValue('line', 'channel.secret')]);
-$signature = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
+$httpClient = new CurlHTTPClient(Conf::getValue('line', 'channel.access.token'));
+$bot = new LINEBot($httpClient, ['channelSecret' => Conf::getValue('line', 'channel.secret')]);
+$signature = $_SERVER["HTTP_" . HTTPHeader::LINE_SIGNATURE];
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 
 foreach ($events as $event) {
