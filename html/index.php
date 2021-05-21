@@ -36,6 +36,6 @@ foreach ($events as $event) {
         $response = $bot->replyMessage($event->getReplyToken(), new TextMessageBuilder($uri));
     } else {
         $response = $bot->replyMessage(
-            $event->getReplyToken(), new TextMessageBuilder('このBOTを使う時はメニューからget musicをタップしてね'));
+            $event->getReplyToken(), new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね"));
     }
 }
