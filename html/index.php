@@ -20,6 +20,7 @@ foreach ($events as $event) {
 
     $text = $event->getText();
     if ('getMusic!!' === $text) {
+        dbUtill::registerUser($db,$event->getUserId());
         $array = [];
         for ($i = 1; $i <= 8; $i++) {
             array_push($array, new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分')));

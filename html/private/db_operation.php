@@ -3,17 +3,6 @@
 $dsn = 'mysql:host=mysql;dbname=' . Conf::getValue('db', 'db') . ';charset=utf8mb4';
 $db = new PDO($dsn, Conf::getValue('db', 'user'), Conf::getValue('db', 'password'));
 
-$db->exec('create table if not exists music_data(
-      id int not null auto_increment primary key,
-      uri VARCHAR(255),
-      artists VARCHAR(255),
-      popularity int(11),
-      duration_ms int(11),
-      isrc VARCHAR(255),
-      registdate datetime,
-      updatedate datetime
-      )');
-
 class dbUtill
 {
     public static function insertMusicData($db, $uri, $artists, $popularity, $duration_ms, $isrc)
@@ -29,6 +18,18 @@ class dbUtill
                 $stmt = $db->prepare($sql);
                 $stmt->execute([$uri, $artists, $popularity, $duration_ms, $isrc]);
             }
+        } catch (PDOException $e) {
+            var_dump($e);
+        }
+    }
+
+    public static function registerUser($db, $userid){
+        try {
+            $sql = "INSERT INTO users (userid, used_count, registdate, updatedate)
+                    VALUES (?, 0, NOW(), NOW())
+                    ON DUPLICATE KEY UPDATE used_count = used_count + 1, updatedate = VALUES(updatedate)";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$userid]);
         } catch (PDOException $e) {
             var_dump($e);
         }
