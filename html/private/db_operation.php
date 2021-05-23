@@ -28,7 +28,7 @@ class dbUtill
         try {
             $sql = "INSERT INTO users (userid, used_count, registdate, updatedate)
                     VALUES (?, 0, NOW(), NOW())
-                    ON DUPLICATE KEY UPDATE used_count = used_count + 1, updatedate = VALUES(updatedate)";
+                    ON DUPLICATE KEY UPDATE updatedate = VALUES(updatedate)";
             $stmt = $db->prepare($sql);
             $stmt->execute([$userid]);
         } catch (PDOException $e) {
