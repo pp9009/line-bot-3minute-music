@@ -33,6 +33,7 @@ foreach ($events as $event) {
             $event->getReplyToken(), $messageTemplate);
 
     } elseif (preg_match('/^[1-8]{1}分$/u', $text)) {
+        dbUtill::updateUserCount($db, $event->getUserId());
         $uri = dbUtill::getMusic($db, $text, true);
         $response = $bot->replyMessage($event->getReplyToken(), new TextMessageBuilder($uri));
     } else {

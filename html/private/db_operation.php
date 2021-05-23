@@ -23,7 +23,8 @@ class dbUtill
         }
     }
 
-    public static function registerUser($db, $userid){
+    public static function registerUser($db, $userid)
+    {
         try {
             $sql = "INSERT INTO users (userid, used_count, registdate, updatedate)
                     VALUES (?, 0, NOW(), NOW())
@@ -59,13 +60,34 @@ class dbUtill
         }
     }
 
-    public static function deleteMoreThan30dayAgoData($db, $target_day)
+    public static function updateUserCount($db, $userid)
     {
         try {
-            $sql = "delete from music_data where date_format( ?, '%Y-%m-%d') >= date_format( registdate, '%Y-%m-%d')";
+            $sql = "update users set used_count = used_count + 1 where userid = ?";
             $stmt = $db->prepare($sql);
-            $result = $stmt->execute([$target_day]);
-            return $result;
+            $stmt->execute([$userid]);
+        } catch (PDOException $e) {
+            var_dump($e);
+        }
+    }
+
+    public static function deleteMusicData($db)
+    {
+        try {
+            for ($i = 1; $i <= 8; $i++) {
+                $sql = 'select * from music_data where duration_ms between (60000 * ? - 5000) and (60000 * ? + 5000) and isrc like ' . '"jp%"';
+                $stmt = $db->prepare($sql);
+                $stmt->execute([$i, $i]);
+                $music_data = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
+                if (count($music_data) > 10000) {
+                    // 約n分のデータが1万件以上あった場合
+                    $delete_limit = count($music_data) - 10000;
+                    $sql = "delete from music_data order by registdate limit $delete_limit";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute();
+                }
+            }
         } catch (PDOException $e) {
             var_dump($e);
             return null;

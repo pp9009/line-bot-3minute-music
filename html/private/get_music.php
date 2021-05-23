@@ -4,7 +4,7 @@ include(__DIR__ . '/include.php');
 
 function main($db)
 {
-//    deleteData($db);
+    dbUtill::deleteMusicData($db);
     $search_result = execSearchApi(getRandomSearch(), 'track', ['market' => 'JP']);
     //$search_result = execSearchApi('%punpee%', 'track', ['market' => 'JP']);
     saveSelectMinuteTrack($db, $search_result->tracks);
@@ -121,12 +121,6 @@ function isIsrcJp($isrc)
         return true;
     }
     return false;
-}
-
-function deleteData($db)
-{
-    $thirty_days_ago = date("Y-m-d", strtotime("-30 day"));
-    dbUtill::deleteMoreThan30dayAgoData($db, $thirty_days_ago);
 }
 
 main($db);
