@@ -5,14 +5,14 @@ create table music_data(
     `popularity` int(11),
     `duration_ms` int(11),
     `isrc` VARCHAR(255),
-    `registdate` datetime,
-    `updatedate` datetime
+    `register_date` datetime,
+    `update_date` datetime
     );
 
 create table users(
     `userid` VARCHAR(255) primary key,
     `used_count` int(11),
     `status` VARCHAR(255),
-    `registdate` datetime,
-    `updatedate` datetime
+    `register_date` datetime,
+    `update_date` datetime
     );

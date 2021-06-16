@@ -6,7 +6,6 @@ function main($db)
 {
     dbUtill::deleteMusicData($db);
     $search_result = execSearchApi(getRandomSearch(), 'track', ['market' => 'JP']);
-    //$search_result = execSearchApi('%punpee%', 'track', ['market' => 'JP']);
     saveSelectMinuteTrack($db, $search_result->tracks);
 
     $next_url = $search_result->tracks->next;
@@ -23,8 +22,8 @@ function main($db)
 function execSearchApi($q, $type, $option)
 {
     $session = new SpotifyWebAPI\Session(
-        Conf::getValue('spotify', 'client.id'),
-        Conf::getValue('spotify', 'client.secret')
+        Env::getValue('client.id'),
+        Env::getValue('client.secret')
     );
     $api = new SpotifyWebAPI\SpotifyWebAPI();
     $session->requestCredentialsToken();
@@ -38,8 +37,8 @@ function execSearchApi($q, $type, $option)
 function execURL($url)
 {
     $session = new SpotifyWebAPI\Session(
-        Conf::getValue('spotify', 'client.id'),
-        Conf::getValue('spotify', 'client.secret')
+        Env::getValue('client.id'),
+        Env::getValue('client.secret')
     );
     $session->requestCredentialsToken();
     $accessToken = $session->getAccessToken();
@@ -89,8 +88,10 @@ function saveSelectMinuteTrack($db, $tracks)
         $duration_ms = '';
         $isrc = '';
 
-        if (isBetweent($item->duration_ms)
-            && isIsrcJp($item->external_ids->isrc)) {
+        if (
+            validateTime($item->duration_ms)
+            && isIsrcJp($item->external_ids->isrc)
+        ) {
             $uri = $item->external_urls->spotify;
             foreach ($item->artists as $artist) {
                 $artists .= $artist->name . ',';
@@ -103,7 +104,7 @@ function saveSelectMinuteTrack($db, $tracks)
     }
 }
 
-function isBetweent($val)
+function validateTime($val)
 {
     for ($minute = 1; $minute <= 8; $minute++) {
         $convert_ms = $minute * 60000;
@@ -111,20 +112,15 @@ function isBetweent($val)
             return true;
         }
     }
-
     return false;
 }
 
 function isIsrcJp($isrc)
 {
-    if ('JP' === substr($isrc, 0, 2)) {
+    if (substr($isrc, 0, 2) === 'JP') {
         return true;
     }
     return false;
 }
 
 main($db);
-
-
-
-

@@ -1,20 +1,18 @@
 <?php
 
-class Conf
+use Dotenv\Dotenv;
+
+class Env
 {
+    private static $dotenv;
 
-    private static $ini_file = 'conf.ini';
-    private static $value = null;
-
-    public static function init()
+    public static function getValue($key)
     {
-        self::$value = parse_ini_file(__DIR__ . '/conf/' . self::$ini_file, true);
-    }
+        if ((self::$dotenv instanceof Dotenv) === false) {
+            self::$dotenv = Dotenv::create(__DIR__ . './../');
+            self::$dotenv->load();
+        }
 
-    public static function getValue($section, $key)
-    {
-        return self::$value[$section][$key];
+        return array_key_exists($key, $_ENV) ? $_ENV[$key] : null;
     }
 }
-
-Conf::init();

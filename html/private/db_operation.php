@@ -1,7 +1,7 @@
 <?php
 
-$dsn = 'mysql:host=mysql;dbname=' . Conf::getValue('db', 'db') . ';charset=utf8mb4';
-$db = new PDO($dsn, Conf::getValue('db', 'user'), Conf::getValue('db', 'password'));
+$dsn = 'mysql:host=mysql;dbname=' . Env::getValue('db') . ';charset=utf8mb4';
+$db = new \PDO($dsn, Env::getValue('user'), Env::getValue('password'));
 
 class dbUtill
 {
@@ -19,7 +19,7 @@ class dbUtill
                 $stmt->execute([$uri, $artists, $popularity, $duration_ms, $isrc]);
             }
         } catch (PDOException $e) {
-            var_dump($e);
+            error_log($e);
         }
     }
 
@@ -32,7 +32,7 @@ class dbUtill
             $stmt = $db->prepare($sql);
             $stmt->execute([$userid]);
         } catch (PDOException $e) {
-            var_dump($e);
+            error_log($e);
         }
     }
 
@@ -55,7 +55,7 @@ class dbUtill
             $response = $result[array_rand($result)];
             return $response['uri'];
         } catch (PDOException $e) {
-            var_dump($e);
+            error_log($e);
             return null;
         }
     }
@@ -67,7 +67,7 @@ class dbUtill
             $stmt = $db->prepare($sql);
             $stmt->execute([$userid]);
         } catch (PDOException $e) {
-            var_dump($e);
+            error_log($e);
         }
     }
 
@@ -89,9 +89,8 @@ class dbUtill
                 }
             }
         } catch (PDOException $e) {
-            var_dump($e);
+            error_log($e);
             return null;
         }
     }
-
 }
