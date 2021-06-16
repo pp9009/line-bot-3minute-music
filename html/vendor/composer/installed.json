@@ -1,17 +1,17 @@
 [
     {
         "name": "jwilsson/spotify-web-api-php",
-        "version": "3.5.0",
-        "version_normalized": "3.5.0.0",
+        "version": "3.6.2",
+        "version_normalized": "3.6.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/jwilsson/spotify-web-api-php.git",
-            "reference": "ea8a02dd10511c36427ed62b6d9f34c5bb6a5869"
+            "reference": "0d259539545726fa6ba2b2bda36b427496157602"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/ea8a02dd10511c36427ed62b6d9f34c5bb6a5869",
-            "reference": "ea8a02dd10511c36427ed62b6d9f34c5bb6a5869",
+            "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/0d259539545726fa6ba2b2bda36b427496157602",
+            "reference": "0d259539545726fa6ba2b2bda36b427496157602",
             "shasum": ""
         },
         "require": {
@@ -23,7 +23,7 @@
             "phpunit/phpunit": "^6.0",
             "squizlabs/php_codesniffer": "^3.0"
         },
-        "time": "2020-06-23T17:34:19+00:00",
+        "time": "2020-10-19T19:41:24+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -49,17 +49,17 @@
     },
     {
         "name": "linecorp/line-bot-sdk",
-        "version": "4.5.0",
-        "version_normalized": "4.5.0.0",
+        "version": "4.6.0",
+        "version_normalized": "4.6.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/line/line-bot-sdk-php.git",
-            "reference": "c46db583b1e1b5af64af80fe3fc9bd4e80f7e000"
+            "reference": "393fe9d6d311224e0ad0482d134e89c6403ec2b9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/c46db583b1e1b5af64af80fe3fc9bd4e80f7e000",
-            "reference": "c46db583b1e1b5af64af80fe3fc9bd4e80f7e000",
+            "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/393fe9d6d311224e0ad0482d134e89c6403ec2b9",
+            "reference": "393fe9d6d311224e0ad0482d134e89c6403ec2b9",
             "shasum": ""
         },
         "require": {
@@ -79,7 +79,7 @@
             "apigen/apigen": "Install with roave/better-reflection:dev-master to generate docs",
             "roave/better-reflection": "Required by apigen/apigen:dev-master"
         },
-        "time": "2020-07-10T07:42:49+00:00",
+        "time": "2020-09-30T09:29:23+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -119,6 +119,226 @@
             "bot",
             "line",
             "sdk"
+        ]
+    },
+    {
+        "name": "phpoption/phpoption",
+        "version": "1.7.5",
+        "version_normalized": "1.7.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/schmittjoh/php-option.git",
+            "reference": "994ecccd8f3283ecf5ac33254543eb0ac946d525"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/994ecccd8f3283ecf5ac33254543eb0ac946d525",
+            "reference": "994ecccd8f3283ecf5ac33254543eb0ac946d525",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.5.9 || ^7.0 || ^8.0"
+        },
+        "require-dev": {
+            "bamarni/composer-bin-plugin": "^1.4.1",
+            "phpunit/phpunit": "^4.8.35 || ^5.7.27 || ^6.5.6 || ^7.0 || ^8.0 || ^9.0"
+        },
+        "time": "2020-07-20T17:29:33+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.7-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PhpOption\\": "src/PhpOption/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Johannes M. Schmitt",
+                "email": "schmittjoh@gmail.com"
+            },
+            {
+                "name": "Graham Campbell",
+                "email": "graham@alt-three.com"
+            }
+        ],
+        "description": "Option Type for PHP",
+        "keywords": [
+            "language",
+            "option",
+            "php",
+            "type"
+        ],
+        "funding": [
+            {
+                "url": "https://github.com/GrahamCampbell",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/phpoption/phpoption",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "symfony/polyfill-ctype",
+        "version": "v1.23.0",
+        "version_normalized": "1.23.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/polyfill-ctype.git",
+            "reference": "46cd95797e9df938fdd2b03693b5fca5e64b01ce"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/46cd95797e9df938fdd2b03693b5fca5e64b01ce",
+            "reference": "46cd95797e9df938fdd2b03693b5fca5e64b01ce",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.1"
+        },
+        "suggest": {
+            "ext-ctype": "For best performance"
+        },
+        "time": "2021-02-19T12:13:01+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-main": "1.23-dev"
+            },
+            "thanks": {
+                "name": "symfony/polyfill",
+                "url": "https://github.com/symfony/polyfill"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Ctype\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Gert de Pagter",
+                "email": "BackEndTea@gmail.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill for ctype functions",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "ctype",
+            "polyfill",
+            "portable"
+        ],
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "vlucas/phpdotenv",
+        "version": "v3.6.8",
+        "version_normalized": "3.6.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vlucas/phpdotenv.git",
+            "reference": "5e679f7616db829358341e2d5cccbd18773bdab8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/5e679f7616db829358341e2d5cccbd18773bdab8",
+            "reference": "5e679f7616db829358341e2d5cccbd18773bdab8",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.4 || ^7.0 || ^8.0",
+            "phpoption/phpoption": "^1.5.2",
+            "symfony/polyfill-ctype": "^1.17"
+        },
+        "require-dev": {
+            "ext-filter": "*",
+            "ext-pcre": "*",
+            "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
+        },
+        "suggest": {
+            "ext-filter": "Required to use the boolean validator.",
+            "ext-pcre": "Required to use most of the library."
+        },
+        "time": "2021-01-20T14:39:46+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Dotenv\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Graham Campbell",
+                "email": "graham@alt-three.com",
+                "homepage": "https://gjcampbell.co.uk/"
+            },
+            {
+                "name": "Vance Lucas",
+                "email": "vance@vancelucas.com",
+                "homepage": "https://vancelucas.com/"
+            }
+        ],
+        "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+        "keywords": [
+            "dotenv",
+            "env",
+            "environment"
+        ],
+        "funding": [
+            {
+                "url": "https://github.com/GrahamCampbell",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
+                "type": "tidelift"
+            }
         ]
     }
 ]

@@ -1,6 +1,7 @@
 {
     "require": {
         "jwilsson/spotify-web-api-php": "^3.5",
-        "linecorp/line-bot-sdk": "^4.5"
+        "linecorp/line-bot-sdk": "^4.5",
+        "vlucas/phpdotenv": "^3.3"
     }
 }

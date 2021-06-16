@@ -6,25 +6,50 @@ namespace Composer\Autoload;
 
 class ComposerStaticInita14164322ab63c383e020ee4e2f21969
 {
+    public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'SpotifyWebAPI\\' => 14,
+        ),
+        'P' => 
+        array (
+            'PhpOption\\' => 10,
         ),
         'L' => 
         array (
             'LINE\\' => 5,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
         'SpotifyWebAPI\\' => 
         array (
             0 => __DIR__ . '/..' . '/jwilsson/spotify-web-api-php/src',
         ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
         'LINE\\' => 
         array (
             0 => __DIR__ . '/..' . '/linecorp/line-bot-sdk/src',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
     );
 
