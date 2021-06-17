@@ -18,34 +18,28 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 foreach ($events as $event) {
 
     $text = $event->getText();
-    switch ($text) {
+    if ('getMusic!!' === $text) {
+        dbUtill::registerUser($db, $event->getUserId());
+        $array = [];
+        for ($i = 1; $i <= 8; $i++) {
+            array_push($array, new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分')));
+        }
 
-        case 'getMusic!!':
-            dbUtill::registerUser($db, $event->getUserId());
-            $array = [];
-            for ($i = 1; $i <= 8; $i++) {
-                array_push($array, new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分')));
-            }
+        $quickReply = new QuickReplyMessageBuilder($array);
+        $messageTemplate = new TextMessageBuilder('何分の曲にするか指定してね！', $quickReply);
 
-            $quickReply = new QuickReplyMessageBuilder($array);
-            $messageTemplate = new TextMessageBuilder('何分の曲にするか指定してね！', $quickReply);
-
-            $bot->replyMessage(
-                $event->getReplyToken(),
-                $messageTemplate
-            );
-            break;
-
-        case preg_match('/^[1-8]{1}分$/u', $text):
-            dbUtill::updateUserCount($db, $event->getUserId());
-            $uri = dbUtill::getMusic($db, $text);
-            $bot->replyMessage($event->getReplyToken(), new TextMessageBuilder($uri));
-            break;
-
-        default:
-            $bot->replyMessage(
-                $event->getReplyToken(),
-                new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
-            );
+        $bot->replyMessage(
+            $event->getReplyToken(),
+            $messageTemplate
+        );
+    } elseif (preg_match('/^[1-8]{1}分$/u', $text)) {
+        dbUtill::updateUserCount($db, $event->getUserId());
+        $uri = dbUtill::getMusic($db, $text);
+        $bot->replyMessage($event->getReplyToken(), new TextMessageBuilder($uri));
+    } else {
+        $bot->replyMessage(
+            $event->getReplyToken(),
+            new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
+        );
     }
 }
