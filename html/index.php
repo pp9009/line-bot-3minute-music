@@ -36,7 +36,7 @@ foreach ($events as $event) {
             );
             break;
 
-        case preg_match('/^[1-8]{1}分$/u'):
+        case preg_match('/^[1-8]{1}分$/u', $text):
             dbUtill::updateUserCount($db, $event->getUserId());
             $uri = dbUtill::getMusic($db, $text);
             $bot->replyMessage($event->getReplyToken(), new TextMessageBuilder($uri));
