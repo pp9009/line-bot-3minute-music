@@ -5,14 +5,14 @@ include(__DIR__ . '/include.php');
 function main($db)
 {
     dbUtill::deleteMusicData($db);
-    $search_result = execSearchApi(getRandomSearch(), 'track', ['market' => 'JP']);
-    saveSelectMinuteTrack($db, $search_result->tracks);
+    $search_result = execSearchApi(getRandomSearchQuery(), 'track', ['market' => 'JP']);
+    saveTrack($db, $search_result->tracks);
 
     $next_url = $search_result->tracks->next;
     while (!is_null($next_url)) {
         $next_url_result = execURL($next_url);
         $result_obj = json_decode(json_encode($next_url_result));
-        saveSelectMinuteTrack($db, $result_obj->tracks);
+        saveTrack($db, $result_obj->tracks);
 
         $next_url = $result_obj->tracks->next;
     }
@@ -54,7 +54,7 @@ function execURL($url)
     return $result;
 }
 
-function getRandomSearch()
+function getRandomSearchQuery()
 {
     $str = 'abcdefghijklmnopqrstuvwxyz';
     $shuffled_str = substr(str_shuffle($str), 0, 1);
@@ -74,7 +74,7 @@ function getRandomSearch()
     return $randomSearch;
 }
 
-function saveSelectMinuteTrack($db, $tracks)
+function saveTrack($db, $tracks)
 {
     $items = $tracks->items;
     if (is_null($items)) {

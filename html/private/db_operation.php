@@ -14,7 +14,7 @@ class dbUtill
             $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
             if (count($result) == 0) {
-                $sql = 'insert into music_data(uri,artists,popularity,duration_ms,isrc,registdate,updatedate) VALUES(?,?,?,?,?,NOW(),NOW())';
+                $sql = 'insert into music_data(uri,artists,popularity,duration_ms,isrc,register_date) VALUES(?,?,?,?,?,NOW())';
                 $stmt = $db->prepare($sql);
                 $stmt->execute([$uri, $artists, $popularity, $duration_ms, $isrc]);
             }
@@ -26,9 +26,9 @@ class dbUtill
     public static function registerUser($db, $userid)
     {
         try {
-            $sql = "INSERT INTO users (userid, used_count, registdate, updatedate)
+            $sql = "INSERT INTO users (userid, used_count, register_date, update_date)
                     VALUES (?, 0, NOW(), NOW())
-                    ON DUPLICATE KEY UPDATE updatedate = VALUES(updatedate)";
+                    ON DUPLICATE KEY UPDATE update_date = VALUES(update_date)";
             $stmt = $db->prepare($sql);
             $stmt->execute([$userid]);
         } catch (PDOException $e) {
@@ -36,22 +36,15 @@ class dbUtill
         }
     }
 
-    public static function getMusic($db, $text, $jp_flag = false)
+    public static function getMusic($db, $text)
     {
         try {
-            if ($jp_flag) {
-                $minute = substr($text, 0, 1);
-                $sql = 'select * from music_data where duration_ms between (60000 * ? - 5000) and (60000 * ? + 5000) and isrc like ' . '"jp%"';
-                $stmt = $db->prepare($sql);
-                $stmt->execute([$minute, $minute]);
-                $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
-            } else {
-                $num = mt_rand(80, 100);
-                $sql = 'select * from music_data where popularity >= ?';
-                $stmt = $db->prepare($sql);
-                $stmt->execute([$num]);
-                $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
-            }
+            $minute = substr($text, 0, 1);
+            $sql = 'select * from music_data where duration_ms between (60000 * ? - 5000) and (60000 * ? + 5000) and isrc like ' . '"jp%"';
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$minute, $minute]);
+            $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
             $response = $result[array_rand($result)];
             return $response['uri'];
         } catch (PDOException $e) {
