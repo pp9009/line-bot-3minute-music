@@ -1,7 +1,7 @@
 <?php
 
 $dsn = 'mysql:host=mysql;dbname=' . Env::getValue('db') . ';charset=utf8mb4';
-$db = new \PDO($dsn, Env::getValue('user'), Env::getValue('password'));
+$db = new PDO($dsn, Env::getValue('user'), Env::getValue('password'));
 
 class dbUtill
 {
