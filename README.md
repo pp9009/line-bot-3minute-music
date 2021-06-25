@@ -15,10 +15,10 @@ BOTをローカルで動作させる場合は、下記を行う。
 
 * [LINE Developers](
 https://developers.line.biz/ja/docs/messaging-api/getting-started/)からBOT用のMessaging APIを作成
-  * Messaging APIの{channel.access.token}{channel.secret}を/private/conf/.envに記載
+  * Messaging APIの{channel.access.token} {channel.secret}を/private/conf/.envに記載
 
 * [Spotify for Developers](https://developer.spotify.com/dashboard/)からAPIをコールするクライアントアプリケーションを登録
-  * アプリケーションの{client.id}{client.secret}をprivate/conf/.envに記載
+  * アプリケーションの{client.id} {client.secret}をprivate/conf/.envに記載
 
 * webhookの設定
   * [ngrok](https://ngrok.com/)など使用し、開発サーバーを外部に公開
