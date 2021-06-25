@@ -18,7 +18,7 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 foreach ($events as $event) {
 
     $text = $event->getText();
-    if ('getMusic!!' === $text) {
+    if ($text === 'getMusic!!') {
         dbUtill::registerUser($db, $event->getUserId());
         $button_list = [];
         for ($i = 1; $i <= 8; $i++) {

@@ -82,16 +82,11 @@ function saveTrack($db, $tracks)
     }
 
     foreach ($items as $item) {
-        $uri = '';
-        $artists = '';
-        $popularity = '';
-        $duration_ms = '';
-        $isrc = '';
-
         if (
-            validateTime($item->duration_ms)
-            && isIsrcJp($item->external_ids->isrc)
+            isIsrcJp($item->external_ids->isrc)
+            && validateTime($item->duration_ms)
         ) {
+            $artists = '';
             $uri = $item->external_urls->spotify;
             foreach ($item->artists as $artist) {
                 $artists .= $artist->name . ',';
@@ -106,9 +101,11 @@ function saveTrack($db, $tracks)
 
 function validateTime($val)
 {
-    for ($minute = 1; $minute <= 8; $minute++) {
-        $convert_ms = $minute * 60000;
-        if (($convert_ms - 5000) <= $val && $val <= ($convert_ms + 5000)) {
+    // 1min = 60000ms
+    // 下記は1,2,3,4,5,6,7,8minをmsに変換したもの
+    $ms_list = [60000, 120000, 180000, 240000, 300000, 360000, 420000, 480000];
+    foreach ($ms_list as $ms) {
+        if (($ms - 5000) <= $val && $val <= ($ms + 5000)) {
             return true;
         }
     }
