@@ -20,22 +20,23 @@ foreach ($events as $event) {
     $text = $event->getText();
     if ('getMusic!!' === $text) {
         dbUtill::registerUser($db, $event->getUserId());
-        $array = [];
+        $button_list = [];
         for ($i = 1; $i <= 8; $i++) {
-            array_push($array, new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分')));
+            array_push($button_list, new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分')));
         }
 
-        $quickReply = new QuickReplyMessageBuilder($array);
-        $messageTemplate = new TextMessageBuilder('何分の曲にするか指定してね！', $quickReply);
+        $quickReply = new QuickReplyMessageBuilder($button_list);
 
         $bot->replyMessage(
             $event->getReplyToken(),
-            $messageTemplate
+            new TextMessageBuilder('何分の曲にするか指定してね！', $quickReply)
         );
     } elseif (preg_match('/^[1-8]{1}分$/u', $text)) {
         dbUtill::updateUserCount($db, $event->getUserId());
-        $uri = dbUtill::getMusic($db, $text);
-        $bot->replyMessage($event->getReplyToken(), new TextMessageBuilder($uri));
+        $bot->replyMessage(
+            $event->getReplyToken(),
+            new TextMessageBuilder(dbUtill::getMusic($db, $text))
+        );
     } else {
         $bot->replyMessage(
             $event->getReplyToken(),
