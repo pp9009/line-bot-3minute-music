@@ -1,24 +1,25 @@
-version: '3'
+version: '3.9'
 
 services:
   php:
-    build:
-      context: ./php7.2
-      dockerfile: dockerfile
+    image: php:v1
+    build: ./dockerfile/php
+    container_name: line_bot_php
     volumes:
-      - ./php7.2/php.ini:/usr/local/etc/php/php.ini
+      - ./dockerfile/php/php.ini:/usr/local/etc/php/php.ini
       - ./html:/var/www/html
     ports:
       - 8000:80
     links:
       - mysql:mysql
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
+    container_name: line_bot_mysql
     volumes:
       - ./mysql:/var/lib/mysql
       - ./initdb.d:/docker-entrypoint-initdb.d
     ports:
-      - 13306:3306
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=dev_db
