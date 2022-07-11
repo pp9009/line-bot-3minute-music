@@ -10,8 +10,7 @@ services:
       - ./src:/var/www/html
     ports:
       - 8000:80
-    links:
-      - mysql:mysql
+
   mysql:
     image: mysql:8.0
     container_name: line_bot_mysql
@@ -25,3 +24,7 @@ services:
       - MYSQL_DATABASE=dev_db
       - MYSQL_USER=dev
       - MYSQL_PASSWORD=dev
+
+networks:
+  default:
+    name: line_bot
