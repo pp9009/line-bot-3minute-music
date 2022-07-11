@@ -19,22 +19,22 @@ foreach ($events as $event) {
 
     $text = $event->getText();
     if ($text === 'getMusic!!') {
-        // register user
         $usecase = new Register();
-        $usecase->invoke($event);
+        $usecase->registerUser($event);
 
         $button_list = [];
         for ($i = 1; $i <= 8; $i++) {
             array_push($button_list, new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分')));
         }
-        $quick_reply = new QuickReplyMessageBuilder($button_list);
         $bot->replyMessage(
             $event->getReplyToken(),
-            new TextMessageBuilder('何分の曲にするか指定してね！', $quick_reply)
+            new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($button_list))
         );
     } elseif (preg_match('/^[1-8]{1}分$/u', $text)) {
         $usecase = new Update();
-        $reply_text = $usecase->invoke($event);
+        $usecase->updateUser($event);
+        $reply_text = $usecase->getMusic($event);
+
         $bot->replyMessage(
             $event->getReplyToken(),
             new TextMessageBuilder($reply_text)

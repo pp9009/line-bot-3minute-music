@@ -10,7 +10,7 @@ class Register
         $this->user = new User();
     }
 
-    public function invoke($event)
+    public function registerUser($event)
     {
         $this->user->registerUser($event->getUserId());
     }
