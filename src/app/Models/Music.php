@@ -1,6 +1,6 @@
 <?php
 
-class dbUtill
+class Music
 {
 
     public function __construct()
@@ -27,19 +27,6 @@ class dbUtill
         }
     }
 
-    public function registerUser($userid)
-    {
-        try {
-            $sql = "INSERT INTO users (userid, used_count, register_date, update_date)
-                    VALUES (?, 0, NOW(), NOW())
-                    ON DUPLICATE KEY UPDATE update_date = VALUES(update_date)";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$userid]);
-        } catch (PDOException $e) {
-            error_log($e);
-        }
-    }
-
     public function getMusic($text)
     {
         try {
@@ -54,17 +41,6 @@ class dbUtill
         } catch (PDOException $e) {
             error_log($e);
             return null;
-        }
-    }
-
-    public function updateUserCount($userid)
-    {
-        try {
-            $sql = "update users set used_count = used_count + 1 where userid = ?";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$userid]);
-        } catch (PDOException $e) {
-            error_log($e);
         }
     }
 
