@@ -7,7 +7,7 @@ services:
     container_name: line_bot_php
     volumes:
       - ./dockerfile/php/php.ini:/usr/local/etc/php/php.ini
-      - ./html:/var/www/html
+      - ./src:/var/www/html
     ports:
       - 8000:80
     links:
