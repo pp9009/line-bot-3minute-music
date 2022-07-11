@@ -1,6 +1,6 @@
 <?php
 require(__DIR__ . '/vendor/autoload.php');
-include(__DIR__ . '/private/include.php');
+include(__DIR__ . '/app/include.php');
 
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
