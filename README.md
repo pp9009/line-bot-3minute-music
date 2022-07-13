@@ -31,4 +31,9 @@ client.secret=""
 ```
 $ docker-compose up -d
 ```
-2. LINE BOTに「getMusic!!」を発話
+2. composer install
+```
+$ docker exec -it line_bot_php bash
+$ composer install
+```
+3. LINE BOTに「getMusic!!」を発話
