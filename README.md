@@ -1,28 +1,34 @@
 # line-bot-3minute-music
+
+## DEMO
 ![image](https://user-images.githubusercontent.com/39284992/122329816-06f47100-cf6d-11eb-813a-4a3bcc962141.gif)  
-[投稿したQiitaの記事](https://qiita.com/PP_/items/7eec02d645f0ae52ede0)
 
-# Usage
+## Setup
+### LINE
+[LINE Developers](
+https://developers.line.biz/ja/docs/messaging-api/getting-started/)からMessaging APIの`channel.access.token/channel.secret`を取得  
 
+### Spotify
+[Spotify for Developers](https://developer.spotify.com/dashboard/)からクライアントアプリケーションの`client.id/client.secret`を取得
+
+**.env**
 ```
-git clone https://github.com/pp9009/line-bot-3minute-music.git
-cd line-bot-3minute-music
-docker-compose up -d --build
+# line
+channel.access.token=""
+channel.secret=""
+
+# spotify
+client.id=""
+client.secret=""
 ```
 
+### webhookの設定
+1. [ngrok](https://ngrok.com/)等を用いてlocalhostを外部に公開  
+2. [LINE Messaging APIにWebhook URLを設定](https://developers.line.biz/ja/docs/messaging-api/building-bot/#setting-webhook-url)
 
-BOTをローカルで動作させる場合は、下記を行う。
-
-* [LINE Developers](
-https://developers.line.biz/ja/docs/messaging-api/getting-started/)からBOT用のMessaging APIを作成
-  * Messaging APIの{channel.access.token} {channel.secret}を/private/conf/.envに記載
-
-* [Spotify for Developers](https://developer.spotify.com/dashboard/)からAPIをコールするクライアントアプリケーションを登録
-  * アプリケーションの{client.id} {client.secret}をprivate/conf/.envに記載
-
-* webhookの設定
-  * [ngrok](https://ngrok.com/)など使用し、開発サーバーを外部に公開
-    * [BOTにWebhook URLを設定する](https://developers.line.biz/ja/docs/messaging-api/building-bot/#setting-webhook-url)
-
-上記を行い、/private/get_music.phpを実行してspotifyURIを取得。
-BOTで「getMusic!!」と発話すると動作確認ができます。
+## Usage
+1. コンテナを実行
+```
+docker-compose up -d
+```
+2. LINE BOTに「getMusic!!」を発話
