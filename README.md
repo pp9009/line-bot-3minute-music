@@ -9,7 +9,7 @@
 https://developers.line.biz/ja/docs/messaging-api/getting-started/)からMessaging APIの`channel.access.token/channel.secret`を取得  
 
 ### Spotify
-[Spotify for Developers](https://developer.spotify.com/dashboard/)からクライアントアプリケーションの`client.id/client.secret`を取得
+[Spotify for Developers](https://developer.spotify.com/dashboard/)からアプリケーションの`client.id/client.secret`を取得
 
 **.env**
 ```
@@ -29,6 +29,6 @@ client.secret=""
 ## Usage
 1. コンテナを実行
 ```
-docker-compose up -d
+$ docker-compose up -d
 ```
 2. LINE BOTに「getMusic!!」を発話
