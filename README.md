@@ -32,7 +32,7 @@ client.secret=""
     # .env
     NGROK_AUTH=""
     ```
-2. http://localhost:4040から公開URLを取得
+2. http://localhost:4040 から公開URLを取得
 3. [LINE Messaging APIにWebhook URLを設定](https://developers.line.biz/ja/docs/messaging-api/building-bot/#setting-webhook-url)
 
 ## Usage
