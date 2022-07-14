@@ -11,8 +11,9 @@ https://developers.line.biz/ja/docs/messaging-api/getting-started/)からMessagi
 ### Spotify
 [Spotify for Developers](https://developer.spotify.com/dashboard/)からアプリケーションの`client.id/client.secret`を取得
 
-**.env**
 ```
+# .env
+
 # line
 channel.access.token=""
 channel.secret=""
@@ -22,9 +23,17 @@ client.id=""
 client.secret=""
 ```
 
-### webhookの設定
-1. [ngrok](https://ngrok.com/)等を用いてlocalhostを外部に公開  
-2. [LINE Messaging APIにWebhook URLを設定](https://developers.line.biz/ja/docs/messaging-api/building-bot/#setting-webhook-url)
+### Webhookの設定
+
+サーバーを外部に公開して、LINE Messaging APIにWebhook URLを設定
+#### ngrokを用いる場合
+1. [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken)からAuthtokenを取得  
+    ```
+    # .env
+    NGROK_AUTH=""
+    ```
+2. http://localhost:4040から公開URLを取得
+3. [LINE Messaging APIにWebhook URLを設定](https://developers.line.biz/ja/docs/messaging-api/building-bot/#setting-webhook-url)
 
 ## Usage
 1. コンテナを実行
