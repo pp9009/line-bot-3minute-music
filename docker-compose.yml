@@ -24,6 +24,17 @@ services:
       - MYSQL_DATABASE=dev_db
       - MYSQL_USER=dev
       - MYSQL_PASSWORD=dev
+      
+  ngrok:
+    image: wernight/ngrok:latest
+    ports:
+      - 4040:4040
+    environment:
+      NGROK_PROTOCOL: http
+      NGROK_PORT: php:80
+      NGROK_AUTH: ${NGROK_AUTH}
+    depends_on:
+      - php
 
 networks:
   default:
