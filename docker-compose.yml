@@ -30,9 +30,9 @@ services:
     ports:
       - 4040:4040
     environment:
-      NGROK_PROTOCOL: http
-      NGROK_PORT: php:80
-      NGROK_AUTH: ${NGROK_AUTH}
+      - NGROK_PROTOCOL: http
+      - NGROK_PORT: php:80
+      - NGROK_AUTH: ${NGROK_AUTH}
     depends_on:
       - php
 
