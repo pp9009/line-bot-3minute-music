@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "619e5198eb73c7b54a9693464e8c53d7",
+    "content-hash": "3daeb8352db56bcb3c8ae8d8683a8651",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -70,16 +70,16 @@
         },
         {
             "name": "jwilsson/spotify-web-api-php",
-            "version": "5.1.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jwilsson/spotify-web-api-php.git",
-                "reference": "0d163356c9cc2fefb8716c16ddef85a0fe509361"
+                "reference": "0d6dc349669c3cf50cf39fe3c226ca438eec0489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/0d163356c9cc2fefb8716c16ddef85a0fe509361",
-                "reference": "0d163356c9cc2fefb8716c16ddef85a0fe509361",
+                "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/0d6dc349669c3cf50cf39fe3c226ca438eec0489",
+                "reference": "0d6dc349669c3cf50cf39fe3c226ca438eec0489",
                 "shasum": ""
             },
             "require": {
@@ -114,9 +114,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jwilsson/spotify-web-api-php/issues",
-                "source": "https://github.com/jwilsson/spotify-web-api-php/tree/5.1.0"
+                "source": "https://github.com/jwilsson/spotify-web-api-php/tree/5.2.0"
             },
-            "time": "2022-07-04T17:07:48+00:00"
+            "time": "2022-07-16T07:32:37+00:00"
         },
         {
             "name": "linecorp/line-bot-sdk",
