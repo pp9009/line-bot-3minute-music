@@ -22,8 +22,8 @@ function main($db)
 function execSearchApi($q, $type, $option)
 {
     $session = new SpotifyWebAPI\Session(
-        Env::getValue('client.id'),
-        Env::getValue('client.secret')
+        Env::getValue('SPOTIFY_CLIENT_ID'),
+        Env::getValue('SPOTIFY_CLIENT_SECRET')
     );
     $api = new SpotifyWebAPI\SpotifyWebAPI();
     $session->requestCredentialsToken();
@@ -37,8 +37,8 @@ function execSearchApi($q, $type, $option)
 function execURL($url)
 {
     $session = new SpotifyWebAPI\Session(
-        Env::getValue('client.id'),
-        Env::getValue('client.secret')
+        Env::getValue('SPOTIFY_CLIENT_ID'),
+        Env::getValue('SPOTIFY_CLIENT_SECRET')
     );
     $session->requestCredentialsToken();
     $accessToken = $session->getAccessToken();

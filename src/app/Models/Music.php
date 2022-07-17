@@ -5,8 +5,8 @@ class Music
 
     public function __construct()
     {
-        $dsn = 'mysql:host=mysql;dbname=' . Env::getValue('db') . ';charset=utf8mb4';
-        $this->db = new PDO($dsn, Env::getValue('user'), Env::getValue('password'));
+        $dsn = 'mysql:host=mysql;dbname=' . Env::getValue('MYSQL_DATABASE_DB') . ';charset=utf8mb4';
+        $this->db = new PDO($dsn, Env::getValue('MYSQL_USER'), Env::getValue('MYSQL_PASSWORD'));
     }
 
     public static function insertMusicData($db, $uri, $artists, $popularity, $duration_ms, $isrc)
