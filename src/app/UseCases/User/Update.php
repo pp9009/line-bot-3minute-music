@@ -1,8 +1,5 @@
 <?php
 
-include(__DIR__ . '../../Models/User.php');
-include(__DIR__ . '../../Models/Music.php');
-
 class Update
 {
 

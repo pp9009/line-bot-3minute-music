@@ -1,7 +1,5 @@
 <?php
 
-include(__DIR__ . '../../Models/User.php');
-
 class Register
 {
 
