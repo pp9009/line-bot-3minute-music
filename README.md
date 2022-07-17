@@ -15,12 +15,12 @@ https://developers.line.biz/ja/docs/messaging-api/getting-started/)からMessagi
 # .env
 
 # line
-channel.access.token=""
-channel.secret=""
+LINE_CHANNEL_ACCESS_TOKEN=""
+LINE_CHANNEL_SECRET=""
 
 # spotify
-client.id=""
-client.secret=""
+SPOTIFY_CLIENT_ID=""
+SPOTIFY_CLIENT_SECRET=""
 ```
 
 ### Webhookの設定
