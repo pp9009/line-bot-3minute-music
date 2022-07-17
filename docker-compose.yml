@@ -35,6 +35,8 @@ services:
       - NGROK_AUTH: ${NGROK_AUTH}
     depends_on:
       - php
+    env_file:
+      - ./src/app/.env
 
 networks:
   default:
