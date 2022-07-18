@@ -9,17 +9,17 @@ class Music
         $this->db = new PDO($dsn, Env::getValue('MYSQL_USER'), Env::getValue('MYSQL_PASSWORD'));
     }
 
-    public static function insertMusicData($db, $uri, $artists, $popularity, $duration_ms, $isrc)
+    public function saveTrack($uri, $artists, $popularity, $duration_ms, $isrc)
     {
         try {
             $sql = 'select * from music_data where uri = ?';
-            $stmt = $db->prepare($sql);
+            $stmt = $this->db->prepare($sql);
             $stmt->execute([$uri]);
             $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
             if (count($result) == 0) {
                 $sql = 'insert into music_data(uri,artists,popularity,duration_ms,isrc,register_date) VALUES(?,?,?,?,?,NOW())';
-                $stmt = $db->prepare($sql);
+                $stmt = $this->db->prepare($sql);
                 $stmt->execute([$uri, $artists, $popularity, $duration_ms, $isrc]);
             }
         } catch (PDOException $e) {
@@ -44,23 +44,13 @@ class Music
         }
     }
 
-    public static function deleteMusicData($db)
+    public function deleteOlderMusic($target_date)
     {
         try {
-            for ($i = 1; $i <= 8; $i++) {
-                $sql = 'select * from music_data where duration_ms between (60000 * ? - 5000) and (60000 * ? + 5000) and isrc like ' . '"jp%"';
-                $stmt = $db->prepare($sql);
-                $stmt->execute([$i, $i]);
-                $music_data = $stmt->fetchALL(PDO::FETCH_ASSOC);
-
-                if (count($music_data) > 10000) {
-                    // 約n分のデータが1万件以上あった場合
-                    $delete_limit = count($music_data) - 10000;
-                    $sql = "delete from music_data order by registdate limit $delete_limit";
-                    $stmt = $db->prepare($sql);
-                    $stmt->execute();
-                }
-            }
+            $sql = "delete from music_data where date_format( date_format( registdate, '%Y-%m-%d') >= ?, '%Y-%m-%d')";
+            $stmt = $this->db->prepare($sql);
+            $result = $stmt->execute([$target_date]);
+            return $result;
         } catch (PDOException $e) {
             error_log($e);
             return null;
