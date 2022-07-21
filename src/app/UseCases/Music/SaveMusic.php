@@ -2,6 +2,7 @@
 
 class SaveMusic
 {
+    const MSEC = 60000;
 
     public function __construct()
     {
@@ -9,17 +10,16 @@ class SaveMusic
         $this->music = new Music();
     }
 
-    public function invoke($music)
+    public function invoke($tracks)
     {
-        $items = $music->tracks->items;
+        $items = $tracks->items;
         foreach ($items as $item) {
             if ($this->validateTrack($item)) {
-                $saveData = $this->buildSaveData($item);
-                $this->saveTrack($saveData);
+                $this->saveTrack($item);
             }
         }
 
-        $next_url = $music->tracks->next;
+        $next_url = $tracks->next;
         $this->execNextUrl($next_url);
     }
 
@@ -35,37 +35,26 @@ class SaveMusic
             $items = $result_obj->tracks->items;
             foreach ($items as $item) {
                 if ($this->validateTrack($item)) {
-                    $saveData = $this->buildSaveData($item);
-                    $this->saveTrack($saveData);
+                    $this->saveTrack($item);
                 }
             }
             $next_url = $result_obj->tracks->next;
         }
     }
 
-    private function buildSaveData($item)
+    private function saveTrack($item)
     {
-        $saveData = [];
         $artists = '';
         foreach ($item->artists as $artist) {
             $artists .= $artist->name . ',';
         }
-        $saveData['artists'] = $artists;
-        $saveData['uri'] = $item->external_urls->spotify;
-        $saveData['popularity'] = $item->popularity;
-        $saveData['duration_ms'] = $item->duration_ms;
-        $saveData['isrc'] = $item->external_ids->isrc;
-        return $saveData;
-    }
 
-    private function saveTrack($saveData)
-    {
         $this->music->saveTrack(
-            $saveData['uri'],
-            rtrim($saveData['artists'], ','),
-            $saveData['popularity'],
-            $saveData['duration_ms'],
-            $saveData['isrc']
+            $item->external_urls->spotify,
+            rtrim($artists, ','),
+            $item->popularity,
+            $item->duration_ms,
+            $item->external_ids->isrc,
         );
     }
 
@@ -82,10 +71,11 @@ class SaveMusic
 
     private function validateTime($val)
     {
-        // 1min = 60000ms
-        $ms_list = [60000, 120000, 180000, 240000, 300000, 360000, 420000, 480000];
-        foreach ($ms_list as $ms) {
-            if (($ms - 5000) <= $val && $val <= ($ms + 5000)) {
+        for ($i = 1; $i <= 8; $i++) {
+            if (
+                $val >= self::MSEC * $i - 5000
+                && $val <= self::MSEC * $i + 5000
+            ) {
                 return true;
             }
         }
