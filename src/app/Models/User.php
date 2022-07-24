@@ -1,35 +1,44 @@
 <?php
 
-class User
+namespace App\Models;
+
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
+class User extends Authenticatable
 {
+    use HasApiTokens, HasFactory, Notifiable;
 
-    public function __construct()
-    {
-        $dsn = 'mysql:host=mysql;dbname=' . Env::getValue('MYSQL_DATABASE_DB') . ';charset=utf8mb4';
-        $this->db = new PDO($dsn, Env::getValue('MYSQL_USER'), Env::getValue('MYSQL_PASSWORD'));
-    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
-    public function registerUser($userid)
-    {
-        try {
-            $sql = "INSERT INTO users (userid, used_count, register_date, update_date)
-                    VALUES (?, 0, NOW(), NOW())
-                    ON DUPLICATE KEY UPDATE update_date = VALUES(update_date)";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$userid]);
-        } catch (PDOException $e) {
-            error_log($e);
-        }
-    }
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    public function updateUserCount($userid)
-    {
-        try {
-            $sql = "update users set used_count = used_count + 1 where userid = ?";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$userid]);
-        } catch (PDOException $e) {
-            error_log($e);
-        }
-    }
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
