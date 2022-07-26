@@ -10,10 +10,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
-    const CREATED_AT = 'register_date';
-    const UPDATED_AT = 'update_date';
+    public const CREATED_AT = 'register_date';
+    public const UPDATED_AT = 'update_date';
 
     /**
      * The attributes that are mass assignable.
@@ -31,5 +33,4 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $primaryKey = 'userid';
-
 }

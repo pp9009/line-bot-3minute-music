@@ -20,11 +20,8 @@ class WebhookController extends Controller
 
         foreach ($events as $event) {
             if ($event->getText() === 'getMusic!!') {
-
             } elseif (preg_match('/^[1-8]{1}分$/u', $event->getText())) {
-
             } else {
-
             }
         }
     }

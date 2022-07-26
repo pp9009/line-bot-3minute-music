@@ -9,7 +9,7 @@ class Music extends Model
 {
     use HasFactory;
 
-    const CREATED_AT = 'register_date';
+    public const CREATED_AT = 'register_date';
 
     protected $fillable = [
         'uri',

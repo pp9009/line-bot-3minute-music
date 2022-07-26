@@ -7,7 +7,6 @@ use LINE\LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\Constant\HTTPHeader;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['signature'])->post('/webhook',  function (Request $request, WebhookController $webhook) {
+Route::middleware(['signature'])->post('/webhook', function (Request $request, WebhookController $webhook) {
     $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
     $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
     $events = $bot->parseEventRequest(file_get_contents('php://input'), $request->header(mb_strtolower(HTTPHeader::LINE_SIGNATURE)));

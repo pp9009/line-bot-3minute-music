@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReplyMusic
 {
-    const ONEMIN_CONVERT_MS = 60000;
+    public const ONEMIN_CONVERT_MS = 60000;
 
     public function invoke($event)
     {
