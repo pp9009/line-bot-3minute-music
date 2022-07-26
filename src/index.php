@@ -1,4 +1,5 @@
 <?php
+
 require(__DIR__ . '/vendor/autoload.php');
 require(__DIR__ . '/app/include.php');
 
@@ -16,7 +17,6 @@ $signature = $_SERVER["HTTP_" . HTTPHeader::LINE_SIGNATURE];
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 
 foreach ($events as $event) {
-
     $text = $event->getText();
     if ($text === 'getMusic!!') {
         $usecase = new Register();

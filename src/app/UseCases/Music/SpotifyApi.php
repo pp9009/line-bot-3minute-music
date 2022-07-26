@@ -2,7 +2,6 @@
 
 class SpotifyApi
 {
-
     public function execRandomQuerySearch($type, $option)
     {
         $session = new SpotifyWebAPI\Session(

@@ -2,7 +2,6 @@
 
 class Music
 {
-
     public function __construct()
     {
         $dsn = 'mysql:host=mysql;dbname=' . Env::getValue('MYSQL_DATABASE_DB') . ';charset=utf8mb4';

@@ -2,7 +2,6 @@
 
 class DeleteMusic
 {
-
     public function __construct()
     {
         $this->music = new Music();

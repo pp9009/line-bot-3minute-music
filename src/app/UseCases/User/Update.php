@@ -2,7 +2,6 @@
 
 class Update
 {
-
     public function __construct()
     {
         $this->user = new User();
@@ -14,7 +13,8 @@ class Update
         $this->user->updateUserCount($event->getUserId());
     }
 
-    public function getMusic($event){
+    public function getMusic($event)
+    {
         $reply_text = $this->music->getMusic($event->getText());
         return $reply_text;
     }

@@ -2,7 +2,7 @@
 
 class SaveMusic
 {
-    const MSEC = 60000;
+    public const MSEC = 60000;
 
     public function __construct()
     {

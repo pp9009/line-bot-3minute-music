@@ -2,7 +2,6 @@
 
 class Register
 {
-
     public function __construct()
     {
         $this->user = new User();
