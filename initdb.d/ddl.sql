@@ -1,4 +1,4 @@
-create table music_data(
+create table music(
     `id` int not null auto_increment primary key,
     `uri` VARCHAR(255), index uri_index (uri),
     `artists` VARCHAR(255),

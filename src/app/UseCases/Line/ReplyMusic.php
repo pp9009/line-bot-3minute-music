@@ -14,7 +14,7 @@ class ReplyMusic
     public function invoke($event)
     {
         $minute = str_replace('分', '', $event->getText());
-        $reply_text = DB::table('music_data')
+        $reply_text = DB::table('music')
             ->select('uri')
             ->where('isrc', 'like', 'jp%')
             ->whereBetween('duration_ms', [self::ONEMINUTE_CONVERT_TO_MSEC * $minute - 5000, self::ONEMINUTE_CONVERT_TO_MSEC * $minute + 5000])
