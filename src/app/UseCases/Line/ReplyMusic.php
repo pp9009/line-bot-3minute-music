@@ -6,6 +6,7 @@ use LINE\LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class ReplyMusic
 {
@@ -13,8 +14,11 @@ class ReplyMusic
 
     public function invoke($event)
     {
+        User::where('userid', $event->getUserId())
+            ->increment('used_count');
+
         $minute = str_replace('分', '', $event->getText());
-        $reply_text = DB::table('music')
+        $reply_text = DB::table('music_data')
             ->select('uri')
             ->where('isrc', 'like', 'jp%')
             ->whereBetween('duration_ms', [self::ONEMINUTE_CONVERT_TO_MSEC * $minute - 5000, self::ONEMINUTE_CONVERT_TO_MSEC * $minute + 5000])
