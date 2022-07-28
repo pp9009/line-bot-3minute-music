@@ -31,7 +31,7 @@ Route::middleware(['signature'])->post('/webhook', function (Request $request, W
         if ($event->getText() === 'getMusic!!') {
             $webhook->startConversation($event);
         } elseif (preg_match('/^[1-8]{1}分$/u', $event->getText())) {
-            $webhook->replayMusic($event);
+            $webhook->replyMusic($event);
         } else {
             $webhook->exception($event);
         }

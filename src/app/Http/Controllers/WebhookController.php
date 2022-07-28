@@ -32,7 +32,7 @@ class WebhookController extends Controller
         $usecase->invoke($event);
     }
 
-    public function replayMusic($event)
+    public function replyMusic($event)
     {
         $usecase = new ReplyMusic();
         $usecase->invoke($event);
