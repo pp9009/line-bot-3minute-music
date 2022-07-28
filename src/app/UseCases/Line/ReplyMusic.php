@@ -10,7 +10,7 @@ use App\Models\User;
 
 class ReplyMusic
 {
-    public const ONEMINUTE_CONVERT_TO_MSEC = 60000;
+    public const ONEMINUTE_TO_MSEC = 60000;
 
     public function invoke($event)
     {
@@ -21,7 +21,7 @@ class ReplyMusic
         $reply_text = DB::table('music_data')
             ->select('uri')
             ->where('isrc', 'like', 'jp%')
-            ->whereBetween('duration_ms', [self::ONEMINUTE_CONVERT_TO_MSEC * $minute - 5000, self::ONEMINUTE_CONVERT_TO_MSEC * $minute + 5000])
+            ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MSEC * $minute - 5000, self::ONEMINUTE_TO_MSEC * $minute + 5000])
             ->get()
             ->random();
 

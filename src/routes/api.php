@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\SpotifyController;
 use LINE\LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\Constant\HTTPHeader;
@@ -37,3 +38,5 @@ Route::middleware(['signature'])->post('/webhook', function (Request $request, W
         }
     }
 });
+
+Route::get('/get-spotify-tracks', [SpotifyController::class,'getSpotifyTracks']);
