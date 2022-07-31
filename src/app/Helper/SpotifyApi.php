@@ -6,7 +6,6 @@ use SpotifyWebAPI;
 
 class SpotifyApi
 {
-
     public function execURL($url)
     {
         $session = new SpotifyWebAPI\Session(
