@@ -16,52 +16,44 @@ class GetTracks
 
     public function invoke()
     {
-        $search_result = $this->spotify_api->execRandomQuerySearch('track', ['market' => 'JP']);
+        $search_items = $this->spotify_api->execRandomQuerySearch('track', ['market' => 'JP']);
+        $this->saveTrack($search_items->tracks);
+        $this->execNextUrl($search_items->tracks->next);
+    }
 
-        foreach ($search_result->tracks->items as $item) {
+    private function saveTrack($tracks)
+    {
+        foreach ($tracks->items as $item) {
             if ($this->validateTrack($item)) {
-                $this->saveTrack($item);
+                $artists = '';
+                foreach ($item->artists as $artist) {
+                    $artists .= $artist->name . ',';
+                }
+                Music::create([
+                    'uri' => $item->external_urls->spotify,
+                    'artists' => rtrim($artists, ','),
+                    'popularity' => $item->popularity,
+                    'duration_ms' => $item->duration_ms,
+                    'isrc' => $item->external_ids->isrc,
+                ]);
             }
         }
-
-        $next_url = $search_result->tracks->next;
-        $this->execNextUrl($next_url);
     }
 
     private function execNextUrl($next_url)
     {
         while (!is_null($next_url)) {
-            $next_url_result = $this->spotify_api->execURL($next_url);
-            $result_obj = json_decode(json_encode($next_url_result));
-            if (isset($result_obj->error)) {
+            $search_items = json_decode(json_encode($this->spotify_api->execURL($next_url)));
+            if (isset($search_items->error)) {
                 return;
             }
 
-            $items = $result_obj->tracks->items;
-            foreach ($items as $item) {
-                if ($this->validateTrack($item)) {
-                    $this->saveTrack($item);
-                }
-            }
-            $next_url = $result_obj->tracks->next;
+            $this->saveTrack($search_items->tracks);
+            $next_url = $search_items->tracks->next;
         }
     }
 
-    private function saveTrack($item)
-    {
-        $artists = '';
-        foreach ($item->artists as $artist) {
-            $artists .= $artist->name . ',';
-        }
 
-        Music::create([
-            'uri' => $item->external_urls->spotify,
-            'artists' => rtrim($artists, ','),
-            'popularity' => $item->popularity,
-            'duration_ms' => $item->duration_ms,
-            'isrc' => $item->external_ids->isrc,
-        ]);
-    }
 
     private function validateTrack($item)
     {
