@@ -19,10 +19,6 @@ use LINE\LINEBot\Constant\HTTPHeader;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::middleware(['signature'])->post('/webhook', function (Request $request, WebhookController $webhook) {
     $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
     $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
@@ -30,7 +26,7 @@ Route::middleware(['signature'])->post('/webhook', function (Request $request, W
 
     foreach ($events as $event) {
         if ($event->getText() === 'getMusic!!') {
-            $webhook->startConversation($event);
+            $webhook->startTalk($event);
         } elseif (preg_match('/^[1-8]{1}分$/u', $event->getText())) {
             $webhook->replyMusic($event);
         } else {

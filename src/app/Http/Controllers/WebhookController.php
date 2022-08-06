@@ -7,7 +7,7 @@ use LINE\LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
-use App\UseCases\Line\SelectTimeQuickReply;
+use App\UseCases\Line\QuickReply;
 use App\UseCases\Line\ReplyMusic;
 
 class WebhookController extends Controller
@@ -26,9 +26,9 @@ class WebhookController extends Controller
         }
     }
 
-    public function startConversation($event)
+    public function startTalk($event)
     {
-        $usecase = new SelectTimeQuickReply();
+        $usecase = new QuickReply();
         $usecase->invoke($event);
     }
 

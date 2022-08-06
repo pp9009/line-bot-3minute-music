@@ -10,7 +10,7 @@ use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use App\Models\User;
 
-class SelectTimeQuickReply
+class QuickReply
 {
     public function invoke($event)
     {
