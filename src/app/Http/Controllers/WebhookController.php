@@ -20,31 +20,19 @@ class WebhookController extends Controller
 
         foreach ($events as $event) {
             if ($event->getText() === 'getMusic!!') {
+                $usecase = new QuickReply();
+                $usecase->invoke($event);
             } elseif (preg_match('/^[1-8]{1}分$/u', $event->getText())) {
+                $usecase = new ReplyMusic();
+                $usecase->invoke($event);
             } else {
+                $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
+                $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
+                $bot->replyMessage(
+                    $event->getReplyToken(),
+                    new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
+                );
             }
         }
-    }
-
-    public function startTalk($event)
-    {
-        $usecase = new QuickReply();
-        $usecase->invoke($event);
-    }
-
-    public function replyMusic($event)
-    {
-        $usecase = new ReplyMusic();
-        $usecase->invoke($event);
-    }
-
-    public function exception($event)
-    {
-        $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
-        $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
-        $bot->replyMessage(
-            $event->getReplyToken(),
-            new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
-        );
     }
 }

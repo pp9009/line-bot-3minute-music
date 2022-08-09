@@ -29,7 +29,7 @@ class ReplyMusic
         $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
         $bot->replyMessage(
             $event->getReplyToken(),
-            new TextMessageBuilder($reply_text)
+            new TextMessageBuilder($reply_text->uri)
         );
     }
 }

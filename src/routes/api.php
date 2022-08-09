@@ -19,20 +19,5 @@ use LINE\LINEBot\Constant\HTTPHeader;
 |
 */
 
-Route::middleware(['signature'])->post('/webhook', function (Request $request, WebhookController $webhook) {
-    $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
-    $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
-    $events = $bot->parseEventRequest(file_get_contents('php://input'), $request->header(mb_strtolower(HTTPHeader::LINE_SIGNATURE)));
-
-    foreach ($events as $event) {
-        if ($event->getText() === 'getMusic!!') {
-            $webhook->startTalk($event);
-        } elseif (preg_match('/^[1-8]{1}分$/u', $event->getText())) {
-            $webhook->replyMusic($event);
-        } else {
-            $webhook->exception($event);
-        }
-    }
-});
-
+Route::middleware(['signature'])->post('/webhook', [WebhookController::class,'index']);
 Route::get('/get-spotify-tracks', [SpotifyController::class,'getSpotifyTracks']);
