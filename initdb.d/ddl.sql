@@ -1,7 +1,7 @@
-create table music(
+create table tracks(
     `id` int not null auto_increment primary key,
     `uri` VARCHAR(255), index uri_index (uri),
-    `artists` VARCHAR(255),
+    `artists` text,
     `popularity` int(10),
     `duration_ms` int(10),
     `isrc` VARCHAR(255),
