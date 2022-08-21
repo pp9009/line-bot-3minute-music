@@ -20,4 +20,3 @@ use LINE\LINEBot\Constant\HTTPHeader;
 */
 
 Route::middleware(['signature'])->post('/webhook', [WebhookController::class,'index']);
-Route::get('/get-spotify-tracks', [SpotifyController::class,'getSpotifyTracks']);
