@@ -1,0 +1,28 @@
+name: php-cs-fixer
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  php_cs_fixer:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: src
+    steps:
+      - uses: actions/checkout@v2
+      - name: install php-cs-fixer
+        run: |
+          composer install --no-scripts --no-progress
+          ./vendor/bin/php-cs-fixer --version
+        # working-directory: ./src
+      - name: fix the files
+        run: |
+          ./vendor/bin/php-cs-fixer fix .
+          git status | grep modified || echo "GIT_STATUS_RESULT=$(echo $?)" >> $GITHUB_ENV
+      - name: commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: php-cs-fixer by github actions
