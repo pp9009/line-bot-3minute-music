@@ -17,7 +17,6 @@ jobs:
         run: |
           composer install --no-scripts --no-progress
           ./vendor/bin/php-cs-fixer --version
-        # working-directory: ./src
       - name: fix the files
         run: |
           ./vendor/bin/php-cs-fixer fix .
