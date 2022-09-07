@@ -21,7 +21,6 @@ jobs:
       - name: fix the files
         run: |
           ./vendor/bin/php-cs-fixer fix .
-          ls
       - name: commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
