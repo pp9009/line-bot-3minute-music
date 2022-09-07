@@ -12,7 +12,7 @@ use App\Models\User;
 
 class QuickReply
 {
-    public function invoke($event )
+    public function invoke($event)
     {
         User::upsert(
             ['userid' => $event->getUserId()],
