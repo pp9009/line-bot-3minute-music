@@ -26,8 +26,6 @@ class WebhookController extends Controller
                 $usecase = new ReplyMusic();
                 $usecase->invoke($event);
             } else {
-                $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
-                $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
                 $bot->replyMessage(
                     $event->getReplyToken(),
                     new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
