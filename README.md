@@ -32,8 +32,12 @@ SPOTIFY_CLIENT_SECRET=""
     # .env
     NGROK_AUTH=""
     ```
-2. http://localhost:4040 から公開URLを取得
-3. [LINE Messaging APIにWebhook URLを設定](https://developers.line.biz/ja/docs/messaging-api/building-bot/#setting-webhook-url)
+2. コンテナを実行
+    ```
+    $ docker-compose up -d
+    ```
+3. http://localhost:4040 から公開URLを取得
+4. [LINE Messaging APIにWebhook URLを設定](https://developers.line.biz/ja/docs/messaging-api/building-bot/#setting-webhook-url)
 
 ## Usage
 1. コンテナを実行
