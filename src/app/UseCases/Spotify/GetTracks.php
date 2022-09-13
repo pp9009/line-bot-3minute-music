@@ -3,7 +3,7 @@
 namespace App\Usecases\Spotify;
 
 use App\Helper\SpotifyApi;
-use App\Models\Music;
+use App\Models\Tracks;
 
 class GetTracks
 {
@@ -29,7 +29,7 @@ class GetTracks
                 foreach ($item->artists as $artist) {
                     $artists .= $artist->name . ',';
                 }
-                Music::create([
+                Tracks::create([
                     'uri' => $item->external_urls->spotify,
                     'artists' => rtrim($artists, ','),
                     'popularity' => $item->popularity,

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Music extends Model
+class Tracks extends Model
 {
     use HasFactory;
 
@@ -21,7 +21,7 @@ class Music extends Model
         'register_date',
     ];
 
-    protected $table = 'music_data';
+    protected $table = 'tracks';
 
     protected $primaryKey = 'id';
 }
