@@ -50,8 +50,12 @@ $ docker-compose up -d
 $ docker exec -it line_bot_php bash
 $ composer install
 ```
-3. start local development server  
+3. 音楽を取得  
+```
+$ php artisan schedule:work
+```
+4. ローカルサーバーを起動する  
 ```
 $ php -S 0.0.0.0:80 -t public
 ```
-4. LINE BOTに「getMusic!!」を発話
+5. LINE BOTに「getMusic!!」を発話
