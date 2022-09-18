@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Usecases\Spotify;
+namespace App\UseCases\Spotify;
 
 use App\Helper\SpotifyApi;
 use App\Models\Tracks;
