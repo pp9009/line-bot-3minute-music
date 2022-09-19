@@ -10,7 +10,8 @@ use App\Models\User;
 
 class ReplyMusic
 {
-    public const ONEMINUTE_TO_MSEC = 60000;
+    // 1minute = 60000ms
+    public const ONEMINUTE_TO_MS = 60000;
 
     public function __construct()
     {
@@ -23,11 +24,11 @@ class ReplyMusic
         User::where('userid', $event->getUserId())
             ->increment('used_count');
 
-        $minute = str_replace('分', '', $event->getText());
+        $request_minutes = str_replace('分', '', $event->getText());
         $tracks = DB::table('tracks')
             ->select('uri')
             ->where('isrc', 'like', 'jp%')
-            ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MSEC * $minute - 5000, self::ONEMINUTE_TO_MSEC * $minute + 5000])
+            ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MS * $request_minutes - 5000, self::ONEMINUTE_TO_MS * $request_minutes + 5000])
             ->get();
 
         if (count($tracks->all()) > 0) {
