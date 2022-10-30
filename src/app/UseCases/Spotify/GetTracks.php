@@ -7,7 +7,10 @@ use App\Models\Tracks;
 
 class GetTracks
 {
+    // 1 minute ＝ 60000 msecond
     public const ONEMINUTE_TO_MSEC = 60000;
+    // 60000 +- TOLERANCE_MSEC を許容する
+    public const TOLERANCE_MSEC = 5000;
 
     public function __construct(SpotifyApi $spotify_api)
     {
@@ -70,8 +73,8 @@ class GetTracks
     {
         for ($i = 1; $i <= 8; $i++) {
             if (
-                $val >= self::ONEMINUTE_TO_MSEC * $i - 5000
-                && $val <= self::ONEMINUTE_TO_MSEC * $i + 5000
+                $val >= self::ONEMINUTE_TO_MSEC * $i - self::TOLERANCE_MSEC
+                && $val <= self::ONEMINUTE_TO_MSEC * $i + self::TOLERANCE_MSEC
             ) {
                 return true;
             }
