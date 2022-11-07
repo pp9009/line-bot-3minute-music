@@ -56,6 +56,6 @@ $ php artisan schedule:work
 ```
 4. ローカルサーバーを起動する  
 ```
-$ php -S 0.0.0.0:80 -t public
+$ php artisan serve --host=0.0.0.0 --port=80
 ```
 5. LINE BOTに「getMusic!!」を発話
