@@ -2,23 +2,22 @@
 
 namespace App\UseCases\Line;
 
-use LINE\LINEBot;
-use LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use Illuminate\Support\Facades\DB;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use App\Models\User;
+use App\UseCases\Line\Share\ApiRequest;
 
 class ReplyMusic
 {
     // 1minute = 60000ms
     public const ONEMINUTE_TO_MS = 60000;
 
-    public function __construct()
-    {
-        $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
-        $this->line_bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
-    }
-
+    /**
+     * ReplyMessageを送信する
+     *
+     * @param mixed $event
+     * @return \Illuminate\Http\Client\Response
+     */
     public function invoke($event)
     {
         User::where('userid', $event->getUserId())
@@ -31,13 +30,14 @@ class ReplyMusic
             ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MS * $request_minutes - 5000, self::ONEMINUTE_TO_MS * $request_minutes + 5000])
             ->get();
 
+        $api = new ApiRequest();
         if (count($tracks->all()) > 0) {
-            $this->line_bot->replyMessage(
+            return $api->replyMessage(
                 $event->getReplyToken(),
                 new TextMessageBuilder($tracks->random()->uri)
             );
         } else {
-            $this->line_bot->replyMessage(
+            return $api->replyMessage(
                 $event->getReplyToken(),
                 new TextMessageBuilder("該当の曲が見つかりませんでした")
             );
