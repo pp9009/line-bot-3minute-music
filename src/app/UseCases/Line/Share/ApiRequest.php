@@ -8,14 +8,13 @@ use Illuminate\Support\Facades\Http;
 
 class ApiRequest
 {
-
-    const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
+    public const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
 
     /**
      * エンドポイントへリクエストを行う
      * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message
      *
-     * @param string $replyToken 
+     * @param string $replyToken
      * @param MessageBuilder $messageBuilder
      * @return \Illuminate\Http\Client\Response
      */

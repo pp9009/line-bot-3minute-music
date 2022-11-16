@@ -11,8 +11,7 @@ use App\UseCases\Line\QuickReply;
 
 class QuickReplyTest extends TestCase
 {
-
-    const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
+    public const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
 
     protected function setUp(): void
     {
