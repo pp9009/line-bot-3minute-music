@@ -20,7 +20,7 @@ class QuickReplyTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // 受信するイベントオブジェクトを作成 
+        // 受信するイベントオブジェクトを作成
         // https://developers.line.biz/ja/reference/messaging-api/#webhook-event-objects
         $this->event = new TextMessage(
             [
