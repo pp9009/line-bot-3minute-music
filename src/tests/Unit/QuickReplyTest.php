@@ -24,7 +24,7 @@ class QuickReplyTest extends TestCase
                 'timestamp' => '1625665242211',
                 'source' => [
                     'type' => 'user',
-                    'userId' => "U131d43d529f145156285155433dd9dcc",
+                    'userId' => "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 ],
                 'replyToken' => '757913772c4646b784d4b7ce46d12671',
                 'mode' => 'active',
@@ -36,11 +36,6 @@ class QuickReplyTest extends TestCase
         );
     }
 
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
     public function test_invoke()
     {
         Http::fake([
@@ -50,6 +45,6 @@ class QuickReplyTest extends TestCase
 
         $response = $usecase->invoke($this->event);
 
-        $this->assertEquals($response->getHTTPStatus(), 200);
+        $this->assertEquals($response->status(), 200);
     }
 }
