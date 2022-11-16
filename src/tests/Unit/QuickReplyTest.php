@@ -9,7 +9,6 @@ use LINE\LINEBot\Event\MessageEvent\TextMessage;
 
 class QuickReplyTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
