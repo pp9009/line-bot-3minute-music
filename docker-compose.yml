@@ -21,7 +21,7 @@ services:
       - 3306:3306
     env_file:
       - ./src/.env
-  
+
   ngrok:
     image: wernight/ngrok:latest
     ports:
@@ -33,7 +33,3 @@ services:
       - php
     env_file:
       - ./src/.env
-
-networks:
-  default:
-    name: line_bot
