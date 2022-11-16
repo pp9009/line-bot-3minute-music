@@ -3,12 +3,17 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\UseCases\Line\QuickReply;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Request;
+use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
+use App\UseCases\Line\QuickReply;
 
 class QuickReplyTest extends TestCase
 {
+
+    const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -46,5 +51,20 @@ class QuickReplyTest extends TestCase
         $response = $usecase->invoke($this->event);
 
         $this->assertEquals($response->status(), 200);
+        // TODO::requestの内容を検査
+        Http::assertSent(function (Request $request) {
+            return $request->url() == self::REPLY_MESSAGE_ENDPOINT;
+        });
+    }
+
+    public function test_user_upsert()
+    {
+        $usecase = new QuickReply();
+
+        $usecase->invoke($this->event);
+
+        $this->assertDatabaseHas('users', [
+            'userid' => 'Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        ]);
     }
 }
