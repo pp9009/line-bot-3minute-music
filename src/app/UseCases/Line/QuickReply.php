@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Http;
 
 class QuickReply
 {
-
     /**
      * QuickReplyを送信する
      *
@@ -40,7 +39,7 @@ class QuickReply
      * エンドポイントへリクエストを行う
      * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message
      *
-     * @param string $replyToken 
+     * @param string $replyToken
      * @param MessageBuilder $messageBuilder
      * @return \Illuminate\Http\Client\Response
      */
