@@ -16,7 +16,8 @@ class ReplyMusicTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // about https://developers.line.biz/ja/reference/messaging-api/#webhook-event-objects
+        // 受信するイベントオブジェクトを作成 
+        // https://developers.line.biz/ja/reference/messaging-api/#webhook-event-objects
         $this->event = new TextMessage(
             [
                 'type' => 'message',
@@ -50,11 +51,17 @@ class ReplyMusicTest extends TestCase
         $response = $usecase->invoke($this->event);
 
         $this->assertEquals($response->status(), 200);
-        // TODO::requestの内容を検査
         Http::assertSent(function (Request $request) {
-            return $request->url() == self::REPLY_MESSAGE_ENDPOINT;
+            return $request->hasHeader('Authorization', 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')) &&
+                $request->url() == self::REPLY_MESSAGE_ENDPOINT &&
+                $request['replyToken'] == $this->event->getReplyToken() &&
+                str_contains($request['messages'][0]['text'], 'https://open.spotify.com/track/');
         });
     }
+
+    // public function test_invoke_error()
+    // {
+    // }
 
     // public function test_user_increment()
     // {

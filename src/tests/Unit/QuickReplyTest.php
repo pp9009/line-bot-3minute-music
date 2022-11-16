@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Request;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\QuickReplyBuilder\ButtonBuilder\QuickReplyButtonBuilder;
+use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use App\UseCases\Line\QuickReply;
 
 class QuickReplyTest extends TestCase
@@ -16,7 +20,8 @@ class QuickReplyTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // about https://developers.line.biz/ja/reference/messaging-api/#webhook-event-objects
+        // 受信するイベントオブジェクトを作成 
+        // https://developers.line.biz/ja/reference/messaging-api/#webhook-event-objects
         $this->event = new TextMessage(
             [
                 'type' => 'message',
@@ -38,6 +43,14 @@ class QuickReplyTest extends TestCase
                 ],
             ]
         );
+
+        // 送信するメッセージオブジェクトを作成
+        // https://developers.line.biz/ja/reference/messaging-api/#message-objects
+        for ($i = 1; $i <= 8; $i++) {
+            $button_list[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分'));
+        }
+        $message_builder = new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($button_list));
+        $this->messages = $message_builder->buildMessage();
     }
 
     public function test_invoke()
@@ -50,9 +63,11 @@ class QuickReplyTest extends TestCase
         $response = $usecase->invoke($this->event);
 
         $this->assertEquals($response->status(), 200);
-        // TODO::requestの内容を検査
         Http::assertSent(function (Request $request) {
-            return $request->url() == self::REPLY_MESSAGE_ENDPOINT;
+            return $request->hasHeader('Authorization', 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')) &&
+                $request->url() == self::REPLY_MESSAGE_ENDPOINT &&
+                $request['replyToken'] == $this->event->getReplyToken() &&
+                $request['messages'] == $this->messages;
         });
     }
 
