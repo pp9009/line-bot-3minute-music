@@ -7,13 +7,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Request;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-use LINE\LINEBot\QuickReplyBuilder\ButtonBuilder\QuickReplyButtonBuilder;
-use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
-use App\UseCases\Line\QuickReply;
+use App\UseCases\Line\ReplyMusic;
 
-class QuickReplyTest extends TestCase
+class ReplyMusicTest extends TestCase
 {
     public const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
 
@@ -28,7 +24,7 @@ class QuickReplyTest extends TestCase
                 'message' => [
                     'type' => 'text',
                     'id' => '17085651723402',
-                    'text' => 'getMusic!!',
+                    'text' => '3分',
                 ],
                 'timestamp' => '1625665242211',
                 'source' => [
@@ -43,14 +39,6 @@ class QuickReplyTest extends TestCase
                 ],
             ]
         );
-
-        // 送信するメッセージオブジェクトを作成
-        // https://developers.line.biz/ja/reference/messaging-api/#message-objects
-        for ($i = 1; $i <= 8; $i++) {
-            $button_list[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分'));
-        }
-        $message_builder = new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($button_list));
-        $this->messages = $message_builder->buildMessage();
     }
 
     public function test_invoke()
@@ -58,7 +46,7 @@ class QuickReplyTest extends TestCase
         Http::fake([
             '*' => Http::response([], 200),
         ]);
-        $usecase = new QuickReply();
+        $usecase = new ReplyMusic();
 
         $response = $usecase->invoke($this->event);
 
@@ -67,18 +55,15 @@ class QuickReplyTest extends TestCase
             return $request->hasHeader('Authorization', 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')) &&
                 $request->url() == self::REPLY_MESSAGE_ENDPOINT &&
                 $request['replyToken'] == $this->event->getReplyToken() &&
-                $request['messages'] == $this->messages;
+                str_contains($request['messages'][0]['text'], 'https://open.spotify.com/track/');
         });
     }
 
-    public function test_user_upsert()
-    {
-        $usecase = new QuickReply();
+    // public function test_invoke_error()
+    // {
+    // }
 
-        $usecase->invoke($this->event);
-
-        $this->assertDatabaseHas('users', [
-            'userid' => 'Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        ]);
-    }
+    // public function test_user_increment()
+    // {
+    // }
 }
