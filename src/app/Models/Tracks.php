@@ -9,7 +9,6 @@ class Tracks extends Model
 {
     use HasFactory;
 
-    public const CREATED_AT = 'register_date';
     public const UPDATED_AT = null;
 
     protected $fillable = [
@@ -18,7 +17,6 @@ class Tracks extends Model
         'popularity',
         'duration_ms',
         'isrc',
-        'register_date',
     ];
 
     protected $table = 'tracks';

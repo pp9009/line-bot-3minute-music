@@ -20,7 +20,7 @@ class ReplyMusic
      */
     public function invoke($event)
     {
-        User::where('userid', $event->getUserId())
+        User::where('id', $event->getUserId())
             ->increment('used_count');
 
         $request_minutes = str_replace('分', '', $event->getText());

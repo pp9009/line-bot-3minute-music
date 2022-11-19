@@ -20,8 +20,8 @@ class QuickReply
     public function invoke($event)
     {
         User::upsert(
-            ['userid' => $event->getUserId()],
-            ['userid'],
+            ['id' => $event->getUserId()],
+            ['id'],
         );
 
         for ($i = 1; $i <= 8; $i++) {
