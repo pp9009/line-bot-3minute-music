@@ -65,5 +65,4 @@ class ReplyMusicTest extends TestCase
                 str_contains($request['messages'][0]['text'], 'https://open.spotify.com/track/');
         });
     }
-
 }
