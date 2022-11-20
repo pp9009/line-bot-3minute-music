@@ -21,5 +21,4 @@ class Tracks extends Model
 
     protected $table = 'tracks';
 
-    protected $primaryKey = 'id';
 }

@@ -13,7 +13,6 @@ return new class () extends Migration {
     public function up()
     {
         Schema::create('tracks', function (Blueprint $table) {
-            $table->id();
             $table->string('uri', 255)->index();
             $table->text('artists');
             $table->integer('popularity');
