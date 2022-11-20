@@ -20,5 +20,4 @@ class Tracks extends Model
     ];
 
     protected $table = 'tracks';
-
 }
