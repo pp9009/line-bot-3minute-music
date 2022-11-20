@@ -1,5 +1,3 @@
-CREATE DATABASE test_db;
-
 create table tracks(
     `id` int not null auto_increment primary key,
     `uri` VARCHAR(255), index uri_index (uri),
@@ -10,9 +8,14 @@ create table tracks(
     `created_at` datetime
     );
 
-create table test(
+create table users(
     `id` VARCHAR(255) primary key,
     `used_count` int default 0,
     `created_at` datetime,
     `updated_at` datetime
     );
+
+-- test用のDB作成
+CREATE DATABASE test_db;
+CREATE user 'test'@'%' identified by 'test';
+GRANT ALL PRIVILEGES ON * . * TO 'test'@'%';

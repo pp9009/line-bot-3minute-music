@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
@@ -12,9 +12,12 @@ use LINE\LINEBot\QuickReplyBuilder\ButtonBuilder\QuickReplyButtonBuilder;
 use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use App\UseCases\Line\QuickReply;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class QuickReplyTest extends TestCase
 {
+    use RefreshDatabase;
+
     public const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
 
     protected function setUp(): void
@@ -53,6 +56,12 @@ class QuickReplyTest extends TestCase
         $this->messages = $message_builder->buildMessage();
     }
 
+    /**
+     * 返信にQuickReplyを含み、「/v2/bot/message/reply」へrequestできてるかテスト
+     * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message
+     *
+     * @return void
+     */
     public function test_invoke()
     {
         Http::fake([
@@ -71,6 +80,11 @@ class QuickReplyTest extends TestCase
         });
     }
 
+    /**
+     * userがinsertされてるかテスト
+     *
+     * @return void
+     */
     public function test_user_upsert()
     {
         $usecase = new QuickReply();
@@ -78,7 +92,7 @@ class QuickReplyTest extends TestCase
         $usecase->invoke($this->event);
 
         $this->assertDatabaseHas('users', [
-            'userid' => 'Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            'id' => 'Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         ]);
     }
 }

@@ -8,14 +8,21 @@ use Illuminate\Http\Client\Request;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
 use App\UseCases\Line\ReplyMusic;
+use Database\Seeders\TrackSeeder;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReplyMusicTest extends TestCase
 {
+    use RefreshDatabase;
+
     public const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(TrackSeeder::class);
+
         // 受信するイベントオブジェクトを作成
         // https://developers.line.biz/ja/reference/messaging-api/#webhook-event-objects
         $this->event = new TextMessage(
@@ -41,6 +48,12 @@ class ReplyMusicTest extends TestCase
         );
     }
 
+    /**
+     * 返信にtrackのurlを含み、「/v2/bot/message/reply」へrequestできてるかテスト
+     * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message
+     *
+     * @return void
+     */
     public function test_invoke()
     {
         Http::fake([
@@ -58,12 +71,4 @@ class ReplyMusicTest extends TestCase
                 str_contains($request['messages'][0]['text'], 'https://open.spotify.com/track/');
         });
     }
-
-    // public function test_invoke_error()
-    // {
-    // }
-
-    // public function test_user_increment()
-    // {
-    // }
 }

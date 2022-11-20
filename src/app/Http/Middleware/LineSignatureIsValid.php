@@ -21,7 +21,7 @@ class LineSignatureIsValid
     {
         if (Arr::has($request->header(), mb_strtolower(HTTPHeader::LINE_SIGNATURE))) {
             if (!SignatureValidator::validateSignature(
-                file_get_contents('php://input'),
+                $request->getContent(),
                 env('LINE_CHANNEL_SECRET'),
                 $request->header(mb_strtolower(HTTPHeader::LINE_SIGNATURE))
             )) {

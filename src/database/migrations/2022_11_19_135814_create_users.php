@@ -13,7 +13,8 @@ return new class () extends Migration {
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
+            $table->integer('used_count')->default(0);
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });
