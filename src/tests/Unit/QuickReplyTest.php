@@ -56,6 +56,12 @@ class QuickReplyTest extends TestCase
         $this->messages = $message_builder->buildMessage();
     }
 
+    /**
+     * 返信にQuickReplyを含み、「/v2/bot/message/reply」へrequestできてるかテスト
+     * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message    
+     * 
+     * @return void
+     */
     public function test_invoke()
     {
         Http::fake([
@@ -74,6 +80,11 @@ class QuickReplyTest extends TestCase
         });
     }
 
+    /**
+     * userがinsertされてるかテスト
+     *
+     * @return void
+     */
     public function test_user_upsert()
     {
         $usecase = new QuickReply();

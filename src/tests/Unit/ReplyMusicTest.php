@@ -48,6 +48,12 @@ class ReplyMusicTest extends TestCase
         );
     }
 
+    /**
+     * 返信にtrackのurlを含み、「/v2/bot/message/reply」へrequestできてるかテスト
+     * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message
+     *
+     * @return void
+     */
     public function test_invoke()
     {
         Http::fake([
