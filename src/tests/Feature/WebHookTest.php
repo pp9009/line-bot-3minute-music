@@ -33,7 +33,7 @@ class WebHookTest extends TestCase
         }
         $messageBuilder = new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($buttons));
         $this->messages = $messageBuilder->buildMessage();
-        
+
         // 想定外の発話に対する返信(メッセージオブジェクト)を作成
         $errorMessageBuilder = new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね");
         $this->errorMessages = $errorMessageBuilder->buildMessage();
