@@ -9,6 +9,7 @@ use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
 use App\UseCases\Line\QuickReply;
 use App\UseCases\Line\ReplyMusic;
+use App\UseCases\Line\Share\ApiRequest;
 
 class WebhookController extends Controller
 {
@@ -16,7 +17,7 @@ class WebhookController extends Controller
     {
         $http_client = new CurlHTTPClient(env('LINE_CHANNEL_ACCESS_TOKEN'));
         $bot = new LINEBot($http_client, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
-        $events = $bot->parseEventRequest(file_get_contents('php://input'), $request->header(mb_strtolower(HTTPHeader::LINE_SIGNATURE)));
+        $events = $bot->parseEventRequest($request->getContent(), $request->header(mb_strtolower(HTTPHeader::LINE_SIGNATURE)));
 
         foreach ($events as $event) {
             if ($event->getText() === 'getMusic!!') {
@@ -26,7 +27,8 @@ class WebhookController extends Controller
                 $usecase = new ReplyMusic();
                 $usecase->invoke($event);
             } else {
-                $bot->replyMessage(
+                $api = new ApiRequest();
+                $api->replyMessage(
                     $event->getReplyToken(),
                     new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
                 );

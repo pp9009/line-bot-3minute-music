@@ -25,13 +25,13 @@ class QuickReply
         );
 
         for ($i = 1; $i <= 8; $i++) {
-            $button_list[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分'));
+            $buttons[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分'));
         }
 
         $api = new ApiRequest();
         return $api->replyMessage(
             $event->getReplyToken(),
-            new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($button_list))
+            new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($buttons))
         );
     }
 }
