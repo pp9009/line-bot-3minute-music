@@ -2,7 +2,7 @@
 
 ## DEMO
 ![image](https://user-images.githubusercontent.com/39284992/122329816-06f47100-cf6d-11eb-813a-4a3bcc962141.gif)  
-## QR
+### QR
 ![image](src/resources/img/947sybkb.png)  
 
 
