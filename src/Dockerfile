@@ -5,7 +5,7 @@ COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 WORKDIR /var/www/html
 
 COPY . .
-
+COPY .env.example .env
 COPY ./php.ini /usr/local/etc/php/php.ini
 
 RUN apt-get update \
