@@ -1,6 +1,6 @@
 FROM php:8.1.5-apache
 
-COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+COPY --from=composer:latest-bin /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
@@ -11,4 +11,4 @@ RUN apt-get update \
     && docker-php-ext-install pdo_mysql mbstring sockets
 
 RUN composer install
-RUN chown -Rf www-data:www-data ./
+# RUN chown -Rf www-data:www-data ./
