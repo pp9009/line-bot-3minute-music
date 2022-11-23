@@ -8,6 +8,7 @@ RUN apt-get update \
 
 WORKDIR /var/www/html
 COPY . ./
+COPY .env.example .env
 COPY ./php.ini /usr/local/etc/php/
 COPY ./conf/apache/*.conf /etc/apache2/sites-enabled/
 
