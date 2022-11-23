@@ -17,3 +17,5 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN composer install
 # RUN chown -Rf www-data:www-data ./
 RUN chown www-data storage/ -R
+
+RUN a2enmod rewrite
