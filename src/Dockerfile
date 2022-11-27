@@ -1,21 +1,31 @@
-FROM php:8.1-apache
+FROM composer AS composer
 
-COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+# copying the source directory and install the dependencies with composer
+COPY ./ /app
+COPY .env.example /app/.env
 
-RUN apt-get update \
-    && apt-get install -y libonig-dev git zip unzip\
-    && docker-php-ext-install pdo_mysql mbstring sockets
+RUN docker-php-ext-install sockets
 
-WORKDIR /var/www/html
-COPY . ./
-COPY .env.example .env
+# run composer install to install the dependencies
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# continue stage build with the desired image and copy the source including the
+# dependencies downloaded by composer
+FROM trafex/php-nginx:latest
+
+USER root
+
+# Install Laravel framework system requirements (https://laravel.com/docs/9.x/deployment#server-requirements)
+RUN apk add \
+        php81-bcmath \
+        php81-fileinfo \
+        php81-tokenizer \
+        php81-mbstring \
+        php81-pdo_mysql
+
+COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./php.ini /usr/local/etc/php/
-COPY ./conf/apache/*.conf /etc/apache2/sites-enabled/
+COPY --chown=nginx --from=composer /app /var/www/html
+RUN chown -R nobody:nobody /var/www/html/storage
+USER nobody
 
-ENV COMPOSER_ALLOW_SUPERUSER 1
-
-RUN composer install
-# RUN chown -Rf www-data:www-data ./
-RUN chown www-data storage/ -R
-
-RUN a2enmod rewrite
