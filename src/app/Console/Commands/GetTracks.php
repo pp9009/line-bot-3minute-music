@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
-use App\Usecases\Spotify\GetTracks as UsecasesGetTracks;
+use App\UseCases\Spotify\GetTracks as UsecasesGetTracks;
 
 class GetTracks extends Command
 {
