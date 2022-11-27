@@ -28,4 +28,3 @@ COPY ./php.ini /usr/local/etc/php/
 COPY --chown=nginx --from=composer /app /var/www/html
 RUN chown -R nobody:nobody /var/www/html/storage
 USER nobody
-EXPOSE 80
