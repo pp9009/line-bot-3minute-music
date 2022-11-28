@@ -23,9 +23,9 @@ RUN apk add \
         php81-mbstring \
         php81-pdo_mysql
 
-# COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./php.ini /usr/local/etc/php/
-COPY --chown=nobody --from=composer /app /var/www/html
+COPY --chown=nginx --from=composer /app /var/www/html
 RUN chown -R nobody:nobody /var/www/html/storage
 USER nobody
-# EXPOSE 80
+EXPOSE 8081
