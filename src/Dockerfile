@@ -25,8 +25,7 @@ RUN apk add \
 
 COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./php.ini /usr/local/etc/php/
-COPY --chown=nginx --from=composer /app /var/www/html
+COPY --chown=nobody --from=composer /app /var/www/html
 RUN chown -R nobody:nobody /var/www/html/storage
-EXPOSE 80
 USER nobody
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# EXPOSE 80
