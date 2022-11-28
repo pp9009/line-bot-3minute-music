@@ -27,5 +27,5 @@ COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./php.ini /usr/local/etc/php/
 COPY --chown=nginx --from=composer /app /var/www/html
 RUN chown -R nobody:nobody /var/www/html/storage
-USER nobody
+# USER nobody
 EXPOSE 80
