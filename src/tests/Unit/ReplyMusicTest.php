@@ -49,7 +49,7 @@ class ReplyMusicTest extends TestCase
     }
 
     /**
-     * 返信にtrackのurlを含み、「/v2/bot/message/reply」へrequestできてるかテスト
+     * trackのurlを含み、「/v2/bot/message/reply」へrequestできてるか検証
      * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message
      *
      * @return void

@@ -14,7 +14,3 @@ create table users(
     `updated_at` datetime
     );
 
--- test用のDB作成
-CREATE DATABASE test_db;
-CREATE user 'test'@'%' identified by 'test';
-GRANT ALL PRIVILEGES ON * . * TO 'test'@'%';

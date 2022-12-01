@@ -39,7 +39,7 @@ class WebHookTest extends TestCase
     }
 
     /**
-     * メニューから「getMusic!!」と発話されたときのテスト
+     * 「getMusic!!」が発話されたとき、想定のQuickReplyを返信してるか検証
      *
      * @return void
      */
@@ -63,7 +63,7 @@ class WebHookTest extends TestCase
     }
 
     /**
-     * 想定外のtextが発話されたときのテスト
+     * 想定外のテキストが発話されたとき、エラーメッセージを返信してるか検証
      *
      * @return void
      */
@@ -87,7 +87,7 @@ class WebHookTest extends TestCase
     }
 
     /**
-     * trackを要求されたときのテスト
+     * 要求されたtrackを返信してるか検証
      *
      * @return void
      */

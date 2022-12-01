@@ -57,7 +57,7 @@ class QuickReplyTest extends TestCase
     }
 
     /**
-     * 返信にQuickReplyを含み、「/v2/bot/message/reply」へrequestできてるかテスト
+     * QuickReplyを「/v2/bot/message/reply」へrequestできてるか検証
      * https://developers.line.biz/ja/reference/messaging-api/#send-reply-message
      *
      * @return void
@@ -81,7 +81,7 @@ class QuickReplyTest extends TestCase
     }
 
     /**
-     * userがinsertされてるかテスト
+     * userがinsertされてるか検証
      *
      * @return void
      */

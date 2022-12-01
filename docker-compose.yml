@@ -22,6 +22,17 @@ services:
     env_file:
       - ./src/.env
 
+  mysql_test:
+    image: mysql:8.0
+    container_name: line_bot_mysql_test
+    volumes:
+      - ./mysql_test:/var/lib/mysql
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 3307:3307
+    env_file:
+      - ./src/.env.testing
+
   ngrok:
     image: wernight/ngrok:latest
     ports:
