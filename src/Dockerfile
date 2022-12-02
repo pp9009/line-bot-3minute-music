@@ -24,7 +24,7 @@ RUN apk add \
         php81-pdo_mysql
 
 # COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY ./conf/nginx/default.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./php.ini /usr/local/etc/php/
 COPY --chown=nginx --from=composer /app /var/www/html
 RUN chown -R nobody:nobody /var/www/html/storage
