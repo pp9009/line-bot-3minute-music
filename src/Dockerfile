@@ -23,7 +23,6 @@ RUN apk add \
         php81-mbstring \
         php81-pdo_mysql
 
-# COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./php.ini /usr/local/etc/php/
 COPY --chown=nginx --from=composer /app /var/www/html
