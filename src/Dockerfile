@@ -1,20 +1,26 @@
-FROM php:8.1-apache
+FROM composer AS composer
 
-COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+# copying the source directory and install the dependencies with composer
+COPY ./ /app
+COPY .env.example /app/.env
+
+# linecorp/line-bot-sdk requires ext-sockets
+RUN docker-php-ext-install sockets
+
+# run composer install to install the dependencies
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# continue stage build with the desired image and copy the source including the
+FROM php:8.1-apache
 
 # Install Laravel framework system requirements (https://laravel.com/docs/9.x/deployment#server-requirements)
 RUN apt-get update \
-    && apt-get install -y libonig-dev git zip unzip\
-    && docker-php-ext-install pdo_mysql mbstring bcmath sockets
+    && apt-get install -y libonig-dev\
+    && docker-php-ext-install pdo_mysql mbstring bcmath
 
-WORKDIR /var/www/html
-COPY ./ ./
-COPY .env.example .env
-COPY ./php.ini /usr/local/etc/php/
-
-# run composer install to install the dependencies
-ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+# dependencies downloaded by composer
+COPY --from=composer /app /var/www/html
+COPY --from=composer /app/php.ini /usr/local/etc/php/
 
 # changing DocumentRoot
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
