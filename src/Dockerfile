@@ -1,30 +1,23 @@
-FROM composer AS composer
+FROM php:8.1-apache
 
-# copying the source directory and install the dependencies with composer
-COPY ./ /app
-COPY .env.example /app/.env
-
-RUN docker-php-ext-install sockets
-
-# run composer install to install the dependencies
-RUN composer install --no-interaction --optimize-autoloader --no-dev
-
-# continue stage build with the desired image and copy the source including the
-# dependencies downloaded by composer
-FROM trafex/php-nginx:latest
-
-USER root
+COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 
 # Install Laravel framework system requirements (https://laravel.com/docs/9.x/deployment#server-requirements)
-RUN apk add \
-        php81-bcmath \
-        php81-fileinfo \
-        php81-tokenizer \
-        php81-mbstring \
-        php81-pdo_mysql
+RUN apt-get update \
+    && apt-get install -y libonig-dev git zip unzip\
+    && docker-php-ext-install pdo_mysql mbstring bcmath sockets
 
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /var/www/html
+COPY . ./
+COPY .env.example .env
 COPY ./php.ini /usr/local/etc/php/
-COPY --chown=nginx --from=composer /app /var/www/html
-RUN chown -R nobody:nobody /var/www/html/storage
-USER nobody
+COPY ./conf/*.conf /etc/apache2/sites-enabled/
+
+# run composer install to install the dependencies
+# ENV COMPOSER_ALLOW_SUPERUSER 1
+# USER root
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+RUN chown -R www-data /var/www/html/storage
+
+RUN a2enmod rewrite
