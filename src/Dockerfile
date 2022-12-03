@@ -8,16 +8,19 @@ RUN apt-get update \
     && docker-php-ext-install pdo_mysql mbstring bcmath sockets
 
 WORKDIR /var/www/html
-COPY . ./
+COPY ./ ./
 COPY .env.example .env
 COPY ./php.ini /usr/local/etc/php/
-COPY ./conf/*.conf /etc/apache2/sites-enabled/
 
 # run composer install to install the dependencies
-# ENV COMPOSER_ALLOW_SUPERUSER 1
-# USER root
+ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN chown -R www-data /var/www/html/storage
+# changing DocumentRoot
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 RUN a2enmod rewrite
+
+RUN chown -R www-data /var/www/html/storage
