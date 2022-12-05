@@ -10,6 +10,7 @@ use LINE\LINEBot\Constant\HTTPHeader;
 use App\UseCases\Line\QuickReply;
 use App\UseCases\Line\ReplyMusic;
 use App\UseCases\Line\Share\ApiRequest;
+use Artisan;
 
 class WebhookController extends Controller
 {
@@ -33,6 +34,9 @@ class WebhookController extends Controller
                     new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
                 );
             }
+
+            // renderはcronが有料のためrequest毎にバッチを実行
+            Artisan::call('command:getTracks');
         }
     }
 }
