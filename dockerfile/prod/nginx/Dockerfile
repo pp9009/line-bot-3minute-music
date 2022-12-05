@@ -5,12 +5,9 @@ COPY ./ /app
 COPY .env.example /app/.env
 
 # linecorp/line-bot-sdk requires ext-sockets
-RUN docker-php-ext-install sockets
+RUN docker-php-ext-install sockets \
+    && composer install --no-interaction --optimize-autoloader --no-dev
 
-# run composer install to install the dependencies
-RUN composer install --no-interaction --optimize-autoloader --no-dev
-
-# continue stage build with the desired image and copy the source including the
 FROM trafex/php-nginx:latest
 
 USER root
