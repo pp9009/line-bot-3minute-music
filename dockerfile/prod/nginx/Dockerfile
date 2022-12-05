@@ -25,7 +25,7 @@ RUN apk add \
 
 # dependencies downloaded by composer
 COPY --chown=nginx --from=composer /app /var/www/html
-COPY --from=composer /app/conf/nginx.conf /etc/nginx/nginx.conf
+COPY --from=composer /app/nginx.conf /etc/nginx/nginx.conf
 COPY --from=composer /app/php.ini /usr/local/etc/php/
 
 RUN chown -R nobody:nobody /var/www/html/storage
