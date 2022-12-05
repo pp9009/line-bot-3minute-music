@@ -3,7 +3,9 @@ version: '3.9'
 services:
   php:
     image: php:v1
-    build: ./dockerfile/local
+    build:
+      context: ./src
+      dockerfile: ../dockerfile/local/Dockerfile
     container_name: line_bot_php
     volumes:
       - ./dockerfile/local/php.ini:/usr/local/etc/php/php.ini
