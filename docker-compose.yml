@@ -3,10 +3,10 @@ version: '3.9'
 services:
   php:
     image: php:v1
-    build: ./dockerfile/php
+    build: ./dockerfile/local
     container_name: line_bot_php
     volumes:
-      - ./dockerfile/php/php.ini:/usr/local/etc/php/php.ini
+      - ./dockerfile/local/php.ini:/usr/local/etc/php/php.ini
       - ./src:/var/www/html
     ports:
       - 80:80
