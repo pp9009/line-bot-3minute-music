@@ -49,15 +49,15 @@ class SpotifyApi
         $num = '01';
         $shuffled_num = substr(str_shuffle($num), 0, 1);
 
-        $random_search = '';
+        $random_query = '';
         switch ($shuffled_num) {
             case 0:
-                $random_search = $shuffled_str . '%';
+                $random_query = $shuffled_str . '%';
                 break;
             case 1:
-                $random_search = '%' . $shuffled_str . '%';
+                $random_query = '%' . $shuffled_str . '%';
                 break;
         }
-        return $random_search;
+        return $random_query;
     }
 }
