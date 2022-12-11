@@ -56,8 +56,6 @@ class GetTracks
         }
     }
 
-
-
     private function validateTrack($item)
     {
         if (
@@ -71,10 +69,10 @@ class GetTracks
 
     private function validateTime($val)
     {
-        for ($i = 1; $i <= 8; $i++) {
+        for ($minute = 1; $minute <= 8; $minute++) {
             if (
-                $val >= self::ONEMINUTE_TO_MSEC * $i - self::TOLERANCE_MSEC
-                && $val <= self::ONEMINUTE_TO_MSEC * $i + self::TOLERANCE_MSEC
+                $val >= $minute * self::ONEMINUTE_TO_MSEC - self::TOLERANCE_MSEC
+                && $val <= $minute * self::ONEMINUTE_TO_MSEC + self::TOLERANCE_MSEC
             ) {
                 return true;
             }
