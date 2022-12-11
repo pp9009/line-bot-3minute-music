@@ -67,12 +67,12 @@ class GetTracks
         return false;
     }
 
-    private function validateTime($val)
+    private function validateTime($msec)
     {
         for ($minute = 1; $minute <= 8; $minute++) {
             if (
-                $val >= $minute * self::ONEMINUTE_TO_MSEC - self::TOLERANCE_MSEC
-                && $val <= $minute * self::ONEMINUTE_TO_MSEC + self::TOLERANCE_MSEC
+                $msec >= $minute * self::ONEMINUTE_TO_MSEC - self::TOLERANCE_MSEC
+                && $msec <= $minute * self::ONEMINUTE_TO_MSEC + self::TOLERANCE_MSEC
             ) {
                 return true;
             }
