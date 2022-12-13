@@ -1,11 +1,12 @@
-FROM composer AS composer
+FROM composer:latest AS composer
 
 # copying the source directory and install the dependencies with composer
 COPY ./ /app
 COPY .env.example /app/.env
 
 # linecorp/line-bot-sdk requires ext-sockets
-RUN docker-php-ext-install sockets \
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions sockets \
     && composer install --no-interaction --optimize-autoloader --no-dev
 
 FROM trafex/php-nginx:latest

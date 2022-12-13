@@ -1,11 +1,12 @@
-FROM composer AS composer
+FROM composer:latest AS composer
 
 # copying the source directory and install the dependencies with composer
 COPY ./ /app
 COPY .env.example /app/.env
 
 # linecorp/line-bot-sdk requires ext-sockets
-RUN docker-php-ext-install sockets \
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions sockets \
     && composer install --no-interaction --optimize-autoloader --no-dev
 
 FROM php:8.1-apache
@@ -21,8 +22,9 @@ COPY --from=composer /app/php.ini /usr/local/etc/php/
 # changing DocumentRoot
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-RUN a2enmod rewrite
+    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
+    && a2enmod rewrite \
+    && chown -R www-data /var/www/html/storage \
+    && php artisan key:generate
 
 RUN chown -R www-data /var/www/html/storage
