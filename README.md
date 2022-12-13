@@ -7,25 +7,25 @@
 
 
 ## Setup
-### .envの設定
-```
-# .env
-
-# line
-LINE_CHANNEL_ACCESS_TOKEN=""
-LINE_CHANNEL_SECRET=""
-
-# spotify
-SPOTIFY_CLIENT_ID=""
-SPOTIFY_CLIENT_SECRET=""
-```
+### .envの作成・設定
+`cp ./src/.env.example ./src/.env`
 
 #### LINE
 [LINE Developers](
 https://developers.line.biz/ja/docs/messaging-api/getting-started/)からMessaging APIの`CHANNEL_ACCESS_TOKEN/CHANNEL_SECRET`を取得  
+```
+# .env
+LINE_CHANNEL_ACCESS_TOKEN=""
+LINE_CHANNEL_SECRET=""
+```
 
 #### Spotify
-[Spotify for Developers](https://developer.spotify.com/dashboard/)からアプリケーションの`CLIENT_ID/CLIENT_SECRET`を取得
+[Spotify for Developers](https://developer.spotify.com/dashboard/)からアプリケーションの`CLIENT_ID/CLIENT_SECRET`を取得  
+```
+# .env
+SPOTIFY_CLIENT_ID=""
+SPOTIFY_CLIENT_SECRET=""
+```
 
 ### Webhookの設定
 サーバーを外部に公開して、LINE Messaging APIにWebhook URLを設定
