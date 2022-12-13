@@ -12,6 +12,11 @@ services:
       - ./src:/var/www/html
     ports:
       - 80:80
+    tty: true
+    command: /bin/bash -c 
+      "chown -R www-data /var/www/html/storage &&
+      php artisan serve --host=0.0.0.0 --port=80 &&
+      /bin/bash"
 
   mysql:
     image: mysql:8.0

@@ -53,13 +53,12 @@ $ docker-compose up -d
 $ docker exec -it line_bot_php bash
 $ composer install
 ```
-3. 音楽を取得  
-```
-$ php artisan schedule:work
-```
-4. ローカルサーバーを起動する  
+3. laravel key generate
 ```
 $ php artisan key:generate
-$ php artisan serve --host=0.0.0.0 --port=80
+```
+4. 音楽を取得  
+```
+$ php artisan schedule:work
 ```
 5. LINE BOTに「getMusic!!」を発話
