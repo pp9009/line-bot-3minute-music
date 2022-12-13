@@ -1,5 +1,5 @@
 create table tracks(
-    `external_url` VARCHAR(255), index external_url_index (external_url),
+    `external_url` VARCHAR(255) primary key,
     `artists` text,
     `popularity` int,
     `duration_ms` int,
