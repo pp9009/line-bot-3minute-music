@@ -4,7 +4,8 @@ create table tracks(
     `popularity` int,
     `duration_ms` int,
     `isrc` VARCHAR(255),
-    `created_at` datetime
+    `created_at` datetime,
+    `updated_at` datetime
     );
 
 create table users(
