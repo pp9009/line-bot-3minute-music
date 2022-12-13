@@ -9,8 +9,10 @@ use App\UseCases\Line\Share\ApiRequest;
 
 class ReplyMusic
 {
-    // 1minute = 60000ms
-    public const ONEMINUTE_TO_MS = 60000;
+    // 1 minute ＝ 60000 msecond
+    public const ONEMINUTE_TO_MSEC = 60000;
+    // 60000 +- TOLERANCE_MSEC を許容する
+    public const TOLERANCE_MSEC = 5000;
 
     /**
      * ReplyMessageを送信する
@@ -27,7 +29,7 @@ class ReplyMusic
         $tracks = DB::table('tracks')
             ->select('external_url')
             ->where('isrc', 'like', 'jp%')
-            ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MS * $request_minutes - 5000, self::ONEMINUTE_TO_MS * $request_minutes + 5000])
+            ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MSEC * $request_minutes - self::TOLERANCE_MSEC, self::ONEMINUTE_TO_MSEC * $request_minutes + self::TOLERANCE_MSEC])
             ->get();
 
         $api = new ApiRequest();

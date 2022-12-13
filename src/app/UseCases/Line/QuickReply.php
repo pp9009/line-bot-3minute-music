@@ -24,8 +24,8 @@ class QuickReply
             ['id'],
         );
 
-        for ($i = 1; $i <= 8; $i++) {
-            $buttons[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分'));
+        for ($minute = 1; $minute <= 8; $minute++) {
+            $buttons[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($minute . '分', $minute . '分'));
         }
 
         $api = new ApiRequest();
