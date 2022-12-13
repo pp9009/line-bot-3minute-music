@@ -32,13 +32,16 @@ class GetTracks
                 foreach ($item->artists as $artist) {
                     $artists .= $artist->name . ',';
                 }
-                Tracks::create([
-                    'external_url' => $item->external_urls->spotify,
-                    'artists' => rtrim($artists, ','),
-                    'popularity' => $item->popularity,
-                    'duration_ms' => $item->duration_ms,
-                    'isrc' => $item->external_ids->isrc,
-                ]);
+                Tracks::upsert(
+                    [
+                        'external_url' => $item->external_urls->spotify,
+                        'artists' => rtrim($artists, ','),
+                        'popularity' => $item->popularity,
+                        'duration_ms' => $item->duration_ms,
+                        'isrc' => $item->external_ids->isrc,
+                    ],
+                    ['external_url'],
+                );
             }
         }
     }

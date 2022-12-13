@@ -9,7 +9,9 @@ class Tracks extends Model
 {
     use HasFactory;
 
-    public const UPDATED_AT = null;
+    public $incrementing = false;
+
+    protected $keyType = 'string';
 
     protected $fillable = [
         'external_url',
@@ -20,4 +22,6 @@ class Tracks extends Model
     ];
 
     protected $table = 'tracks';
+
+    protected $primaryKey = 'external_url';
 }
