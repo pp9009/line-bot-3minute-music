@@ -9,8 +9,10 @@ class GetTracks
 {
     // 1 minute ＝ 60000 msecond
     public const ONEMINUTE_TO_MSEC = 60000;
-    // 60000 +- TOLERANCE_MSEC を許容する
-    public const TOLERANCE_MSEC = 5000;
+
+    // 任意の分数 +- ALLOWANCE_MSEC を許容する
+    // 下記の値だと+-5秒を許容するため、n分55秒~n分05秒の曲を許容する
+    public const ALLOWANCE_MSEC = 5000;
 
     public function __construct(SpotifyApi $spotify_api)
     {
@@ -74,8 +76,8 @@ class GetTracks
     {
         for ($minute = 1; $minute <= 8; $minute++) {
             if (
-                $msec >= $minute * self::ONEMINUTE_TO_MSEC - self::TOLERANCE_MSEC
-                && $msec <= $minute * self::ONEMINUTE_TO_MSEC + self::TOLERANCE_MSEC
+                $msec >= $minute * self::ONEMINUTE_TO_MSEC - self::ALLOWANCE_MSEC
+                && $msec <= $minute * self::ONEMINUTE_TO_MSEC + self::ALLOWANCE_MSEC
             ) {
                 return true;
             }
