@@ -25,7 +25,7 @@ class ReplyMusic
 
         $request_minutes = str_replace('分', '', $event->getText());
         $tracks = DB::table('tracks')
-            ->select('uri')
+            ->select('external_url')
             ->where('isrc', 'like', 'jp%')
             ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MS * $request_minutes - 5000, self::ONEMINUTE_TO_MS * $request_minutes + 5000])
             ->get();
@@ -34,7 +34,7 @@ class ReplyMusic
         if (count($tracks->all()) > 0) {
             return $api->replyMessage(
                 $event->getReplyToken(),
-                new TextMessageBuilder($tracks->random()->uri)
+                new TextMessageBuilder($tracks->random()->external_url)
             );
         } else {
             return $api->replyMessage(

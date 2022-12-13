@@ -16,7 +16,7 @@ class TrackSeeder extends Seeder
     public function run()
     {
         DB::table('tracks')->insert([
-            'uri' => 'https://open.spotify.com/track/' . Str::random(10),
+            'external_url' => 'https://open.spotify.com/track/' . Str::random(10),
             'artists' => Str::random(10),
             'popularity' => 001,
             'duration_ms' => 60000 * 3,

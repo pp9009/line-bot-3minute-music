@@ -33,7 +33,7 @@ class GetTracks
                     $artists .= $artist->name . ',';
                 }
                 Tracks::create([
-                    'uri' => $item->external_urls->spotify,
+                    'external_url' => $item->external_urls->spotify,
                     'artists' => rtrim($artists, ','),
                     'popularity' => $item->popularity,
                     'duration_ms' => $item->duration_ms,

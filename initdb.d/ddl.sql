@@ -1,5 +1,5 @@
 create table tracks(
-    `uri` VARCHAR(255), index uri_index (uri),
+    `external_url` VARCHAR(255), index external_url_index (external_url),
     `artists` text,
     `popularity` int,
     `duration_ms` int,
@@ -13,4 +13,3 @@ create table users(
     `created_at` datetime,
     `updated_at` datetime
     );
-
