@@ -36,7 +36,7 @@ class WebhookController extends Controller
             }
 
             // renderはcronが有料のためrequest毎にバッチを実行
-            Artisan::call('command:getTracks');
+            // Artisan::call('command:getTracks');
         }
     }
 }
