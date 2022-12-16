@@ -28,7 +28,6 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN adduser myuser \
     && chown -R myuser /var/www/html/storage
 
-EXPOSE 8080
 ENV PORT 8080
 RUN sed -i "s/80/$PORT/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
 
