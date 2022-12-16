@@ -12,6 +12,10 @@ services:
       - ./src:/var/www/html
     ports:
       - 80:80
+    tty: true
+    command: /bin/bash -c 
+      "chown -R www-data /var/www/html/storage &&
+      /bin/bash"
 
   mysql:
     image: mysql:8.0

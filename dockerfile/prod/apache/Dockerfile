@@ -26,3 +26,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     && a2enmod rewrite \
     && chown -R www-data /var/www/html/storage
 
+# RUN adduser myuser
+# USER myuser
+RUN usermod -u 1000 www-data
+USER www-data
