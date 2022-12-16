@@ -33,7 +33,7 @@ ENV APACHE_RUN_USER myuser
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 
-RUN chown -R myuser /var/lock/apache2 \
-    && chown myuser -R /var/log/apache2
+RUN chown -R www-data /var/lock/apache2 \
+    && chown www-data -R /var/log/apache2
 
-USER myuser
+USER www-data
