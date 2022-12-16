@@ -7,13 +7,6 @@ use App\Models\Tracks;
 
 class GetTracks
 {
-    // 1 minute ＝ 60000 msecond
-    public const ONEMINUTE_TO_MSEC = 60000;
-
-    // 任意の分数 +- ALLOWANCE_MSEC を許容する
-    // 下記の値だと+-5秒を許容するため、n分55秒~n分05秒の曲を許容する
-    public const ALLOWANCE_MSEC = 5000;
-
     public function __construct(SpotifyApi $spotify_api)
     {
         $this->spotify_api = $spotify_api;
@@ -74,10 +67,19 @@ class GetTracks
 
     private function validateTime($msec)
     {
+        // 1minute = 60000ms
+        $oneminuteToMsec = 60000;
+
+        // 任意の分数 +- ALLOWANCE_MSEC を許容する
+        // 下記の値だと+-5秒を許容するため、n分55秒~n分05秒の曲を許容する
+        $allowanceMsec = 5000;
+
         for ($minute = 1; $minute <= 8; $minute++) {
+            $allowanceMsecMin = $minute * $oneminuteToMsec - $allowanceMsec;
+            $allowanceMsecMax = $minute * $oneminuteToMsec + $allowanceMsec;
             if (
-                $msec >= $minute * self::ONEMINUTE_TO_MSEC - self::ALLOWANCE_MSEC
-                && $msec <= $minute * self::ONEMINUTE_TO_MSEC + self::ALLOWANCE_MSEC
+                $msec >= $allowanceMsecMin
+                && $msec <= $allowanceMsecMax
             ) {
                 return true;
             }
