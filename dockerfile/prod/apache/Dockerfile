@@ -26,18 +26,6 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     && a2enmod rewrite \
     && chown -R www-data /var/www/html/storage
 
-RUN sed -i "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf
-
+RUN sed -i "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
 EXPOSE 8080
 
-RUN adduser myuser \
-    && adduser myuser www-data
-# RUN adduser myuser
-ENV APACHE_RUN_USER myuser
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-
-RUN chown -R www-data /var/lock/apache2 \
-    && chown www-data -R /var/log/apache2
-
-USER www-data
