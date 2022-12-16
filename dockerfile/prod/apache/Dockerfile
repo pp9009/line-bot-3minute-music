@@ -23,10 +23,16 @@ COPY --from=composer /app/php.ini /usr/local/etc/php/
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
-    && a2enmod rewrite \
-    && chown -R www-data /var/www/html/storage
+    && a2enmod rewrite
 
-# RUN sed -i "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+RUN adduser myuser \
+    && chown -R myuser /var/www/html/storage
+
 # EXPOSE 8080
-# USER www-data
+ENV PORT 8080
+RUN sed -i "s/80/$PORT/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+
+ENV APACHE_RUN_USER myuser
+ENV APACHE_RUN_GROUP myuser
+USER myuser
 
