@@ -30,4 +30,4 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 #     && adduser myuser www-data
 RUN adduser myuser
 USER myuser
-ENV APACHE_RUN_USER=myuser
+ENV APACHE_RUN_USER myuser
