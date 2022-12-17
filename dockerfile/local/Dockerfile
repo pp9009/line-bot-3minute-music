@@ -1,23 +1,14 @@
-FROM composer:latest AS composer
-
-# copying the source directory and install the dependencies with composer
-COPY ./ /app
-
-# linecorp/line-bot-sdk requires ext-sockets
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-RUN install-php-extensions sockets \
-    && composer install --no-interaction --optimize-autoloader --no-dev
-
 FROM php:8.1-apache
+
+COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+COPY ./ /var/www/html
 
 # Install Laravel framework system requirements (https://laravel.com/docs/9.x/deployment#server-requirements)
 RUN apt-get update \
-    && apt-get install -y libonig-dev \
-    && docker-php-ext-install pdo_mysql mbstring bcmath \
+    && apt-get install -y libonig-dev git zip unzip \
+    && docker-php-ext-install pdo_mysql mbstring bcmath sockets \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
-
-COPY --from=composer /app /var/www/html
 
 # changing DocumentRoot
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
