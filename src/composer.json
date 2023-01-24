@@ -10,7 +10,7 @@
         "jwilsson/spotify-web-api-php": "5.5.0",
         "laravel/framework": "9.46.0",
         "laravel/sanctum": "3.2.0",
-        "laravel/tinker": "2.7.3",
+        "laravel/tinker": "2.8.0",
         "linecorp/line-bot-sdk": "7.6.1",
         "monolog/monolog": "2.8.0"
     },
