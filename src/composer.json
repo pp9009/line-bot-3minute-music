@@ -18,7 +18,7 @@
         "fakerphp/faker": "1.21.0",
         "friendsofphp/php-cs-fixer": "3.14.3",
         "laravel/pint": "1.4.1",
-        "laravel/sail": "1.19.0",
+        "laravel/sail": "1.20.0",
         "mockery/mockery": "1.5.1",
         "nunomaduro/collision": "6.4.0",
         "phpunit/phpunit": "9.6.2",
