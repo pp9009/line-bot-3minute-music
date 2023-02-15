@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "409bed6d410572aaa85edb9ce133bdfd",
+    "content-hash": "8f17f692324e294a446d1d2cb2ad18e7",
     "packages": [
         {
             "name": "brick/math",
@@ -6444,16 +6444,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v7.0.1",
+            "version": "v7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "0422294fcfb1ca2e15dfc20122d218c45c5bbf51"
+                "reference": "15e5fe35305419c9c6cf196be8d62cf70087a20c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0422294fcfb1ca2e15dfc20122d218c45c5bbf51",
-                "reference": "0422294fcfb1ca2e15dfc20122d218c45c5bbf51",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/15e5fe35305419c9c6cf196be8d62cf70087a20c",
+                "reference": "15e5fe35305419c9c6cf196be8d62cf70087a20c",
                 "shasum": ""
             },
             "require": {
@@ -6471,7 +6471,7 @@
                 "nunomaduro/larastan": "^2.4.0",
                 "orchestra/testbench-core": "^8.0.0",
                 "pestphp/pest": "^2.0.0",
-                "phpunit/phpunit": "^10.0.6",
+                "phpunit/phpunit": "^10.0.7",
                 "spatie/laravel-ignition": "^2.0.0"
             },
             "type": "library",
@@ -6531,7 +6531,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-02-08T12:07:35+00:00"
+            "time": "2023-02-11T18:10:08+00:00"
         },
         {
             "name": "phar-io/manifest",
