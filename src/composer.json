@@ -19,7 +19,7 @@
         "friendsofphp/php-cs-fixer": "3.22.0",
         "laravel/pint": "1.10.5",
         "laravel/sail": "1.22.0",
-        "mockery/mockery": "1.5.1",
+        "mockery/mockery": "1.6.4",
         "nunomaduro/collision": "7.1.0",
         "phpunit/phpunit": "10.2.6",
         "spatie/laravel-ignition": "1.6.4"
