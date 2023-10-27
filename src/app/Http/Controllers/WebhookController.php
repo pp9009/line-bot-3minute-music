@@ -21,17 +21,25 @@ class WebhookController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $request->header(mb_strtolower(HTTPHeader::LINE_SIGNATURE)));
 
         foreach ($events as $event) {
-            if ($event->getText() === 'getMusic!!') {
-                $usecase = new QuickReply();
-                $usecase->invoke($event);
-            } elseif (preg_match('/^[1-8]{1}分$/u', $event->getText())) {
-                $usecase = new ReplyMusic();
-                $usecase->invoke($event);
-            } else {
+            try {
+                if ($event->getText() === 'getMusic!!') {
+                    $usecase = new QuickReply();
+                    $usecase->invoke($event);
+                } elseif (preg_match('/^[1-8]{1}分$/u', $event->getText())) {
+                    $usecase = new ReplyMusic();
+                    $usecase->invoke($event);
+                } else {
+                    $api = new ApiRequest();
+                    $api->replyMessage(
+                        $event->getReplyToken(),
+                        new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
+                    );
+                }
+            } catch (\Exception $e) {
                 $api = new ApiRequest();
                 $api->replyMessage(
                     $event->getReplyToken(),
-                    new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね")
+                    new TextMessageBuilder("サーバーでエラーが発生してます。時間を置いて再度お試しください。")
                 );
             }
 
