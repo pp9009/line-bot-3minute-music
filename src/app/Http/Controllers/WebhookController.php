@@ -10,7 +10,6 @@ use App\UseCases\Line\QuickReply;
 use App\UseCases\Line\ReplyMusic;
 use App\UseCases\Line\Share\ApiRequest;
 use Artisan;
-use Exception;
 
 class WebhookController extends Controller
 {

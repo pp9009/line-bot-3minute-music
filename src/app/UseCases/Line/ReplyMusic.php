@@ -3,7 +3,7 @@
 namespace App\UseCases\Line;
 
 use Illuminate\Support\Facades\DB;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\Clients\MessagingApi\Model\TextMessage;;
 use App\Models\User;
 use App\UseCases\Line\Share\ApiRequest;
 
@@ -24,10 +24,10 @@ class ReplyMusic
      */
     public function invoke($event)
     {
-        User::where('id', $event->getUserId())
+        User::where('id', $event->offsetGet("source")->getUserId())
             ->increment('used_count');
 
-        $request_minutes = str_replace('分', '', $event->getText());
+        $request_minutes = str_replace('分', '', $event->getMessage()->getText());
         $tracks = DB::table('tracks')
             ->select('external_url')
             ->where('isrc', 'like', 'jp%')
