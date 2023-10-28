@@ -6,13 +6,12 @@ use Tests\TestCase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use App\UseCases\Line\QuickReply;
+use App\UseCases\Line\Share\ApiRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class QuickReplyTest extends TestCase
 {
     use RefreshDatabase;
-
-    public const REPLY_MESSAGE_ENDPOINT = 'https://api.line.me/v2/bot/message/reply';
 
     protected function setUp(): void
     {
@@ -65,7 +64,7 @@ class QuickReplyTest extends TestCase
         $this->assertEquals($response->status(), 200);
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')) &&
-                $request->url() == self::REPLY_MESSAGE_ENDPOINT &&
+                $request->url() == ApiRequest::REPLY_MESSAGE_ENDPOINT &&
                 $request['replyToken'] == $this->event["replyToken"] &&
                 $request['messages'] == $this->messages;
         });

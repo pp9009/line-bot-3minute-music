@@ -8,14 +8,13 @@ use Illuminate\Http\Client\Request;
 use LINE\Constants\HTTPHeader;
 use LINE\Clients\MessagingApi\Model\TextMessage;
 use App\UseCases\Line\QuickReply;
+use App\UseCases\Line\Share\ApiRequest;
 use Database\Seeders\TrackSeeder;
 use Tests\TestCase;
 
 class WebHookTest extends TestCase
 {
     use RefreshDatabase;
-
-    public const REPLY_MESSAGE_ENDPOINT = 'https://api.line.me/v2/bot/message/reply';
 
     protected function setUp(): void
     {
@@ -52,7 +51,7 @@ class WebHookTest extends TestCase
         $response->assertStatus(200);
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')) &&
-                $request->url() == self::REPLY_MESSAGE_ENDPOINT &&
+                $request->url() == ApiRequest::REPLY_MESSAGE_ENDPOINT &&
                 $request['messages'] == $this->messages;
         });
     }
@@ -76,7 +75,7 @@ class WebHookTest extends TestCase
         $response->assertStatus(200);
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')) &&
-                $request->url() == self::REPLY_MESSAGE_ENDPOINT &&
+                $request->url() == ApiRequest::REPLY_MESSAGE_ENDPOINT &&
                 $request['messages'] == $this->errorMessages;
         });
     }
@@ -100,7 +99,7 @@ class WebHookTest extends TestCase
         $response->assertStatus(200);
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')) &&
-                $request->url() == self::REPLY_MESSAGE_ENDPOINT &&
+                $request->url() == ApiRequest::REPLY_MESSAGE_ENDPOINT &&
                 str_contains($request['messages'][0]['text'], 'https://open.spotify.com/track/');
         });
     }
