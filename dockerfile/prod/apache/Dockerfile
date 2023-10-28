@@ -9,7 +9,7 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions sockets \
     && composer install --no-interaction --optimize-autoloader --no-dev
 
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 # Install Laravel framework system requirements (https://laravel.com/docs/9.x/deployment#server-requirements)
 RUN apt-get update \
