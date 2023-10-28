@@ -20,18 +20,19 @@ class QuickReply
     public function invoke($event)
     {
         User::upsert(
-            ['id' => $event->getUserId()],
+            ['id' => $event->offsetGet("source")->getUserId()],
             ['id'],
         );
 
         for ($minute = 1; $minute <= 8; $minute++) {
-            $buttons[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($minute . '分', $minute . '分'));
+            $actions[] = (string)$minute . '分';
         }
 
         $api = new ApiRequest();
-        return $api->replyMessage(
+        return $api->quickReplyMessage(
             $event->getReplyToken(),
-            new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($buttons))
+            '何分の曲にするか指定してね！',
+            $actions
         );
     }
 }

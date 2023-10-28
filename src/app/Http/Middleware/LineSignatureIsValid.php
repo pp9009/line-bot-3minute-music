@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use LINE\LINEBot\SignatureValidator;
+use LINE\Parser\SignatureValidator;
 use Illuminate\Support\Arr;
-use LINE\LINEBot\Constant\HTTPHeader;
+use LINE\Constants\HTTPHeader;
 
 class LineSignatureIsValid
 {

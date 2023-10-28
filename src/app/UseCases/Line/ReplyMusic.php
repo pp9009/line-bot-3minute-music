@@ -38,12 +38,12 @@ class ReplyMusic
         if (count($tracks->all()) > 0) {
             return $api->replyMessage(
                 $event->getReplyToken(),
-                new TextMessageBuilder($tracks->random()->external_url)
+                (new TextMessage(['text' => $tracks->random()->external_url]))->setType('text')
             );
         } else {
             return $api->replyMessage(
                 $event->getReplyToken(),
-                new TextMessageBuilder("該当の曲が見つかりませんでした")
+                (new TextMessage(['text' => "該当の曲が見つかりませんでした"]))->setType('text')
             );
         }
     }

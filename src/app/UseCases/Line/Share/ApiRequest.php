@@ -2,13 +2,11 @@
 
 namespace App\UseCases\Line\Share;
 
-use LINE\LINEBot;
-use LINE\LINEBot\MessageBuilder;
 use Illuminate\Support\Facades\Http;
 
 class ApiRequest
 {
-    public const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
+    public const REPLY_MESSAGE_ENDPOINT = 'https://api.line.me/v2/bot/message/reply';
 
     /**
      * エンドポイントへリクエストを行う
@@ -18,13 +16,46 @@ class ApiRequest
      * @param MessageBuilder $messageBuilder
      * @return \Illuminate\Http\Client\Response
      */
-    public function replyMessage($replyToken, MessageBuilder $messageBuilder)
+    public function replyMessage($replyToken, $message)
     {
         return Http::withHeaders([
             'Authorization' => 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')
         ])->post(self::REPLY_MESSAGE_ENDPOINT, [
             'replyToken' => $replyToken,
-            'messages' => $messageBuilder->buildMessage(),
+            'messages' => [$message],
+        ]);
+    }
+
+    public function quickReplyMessage($replyToken, $text, $actions)
+    {
+        $messageObjects = [];
+
+        foreach ($actions as $item) {
+            $messageObject = [
+                'type'  => 'action',
+                'action' => [
+                    'type' => 'message',
+                    'label' => $item,
+                    'text' => $item,
+                ]
+            ];
+            $messageObjects[] = $messageObject;
+        }
+
+        $messages = [
+            'type' => 'text',
+            'text' => $text,
+            'quickReply' => [
+                'items' => $messageObjects,
+            ],
+        ];
+
+        return Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('LINE_CHANNEL_ACCESS_TOKEN')
+        ])->post(self::REPLY_MESSAGE_ENDPOINT, [
+            'replyToken' => $replyToken,
+            'messages' => [$messages]
+
         ]);
     }
 }
