@@ -74,7 +74,7 @@ class ReplyMusicTest extends TestCase
      *
      * @return void
      */
-    public function test_user_upsert()
+    public function test_user_count_increment()
     {
         $usecase = new ReplyMusic();
 
