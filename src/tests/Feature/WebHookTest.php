@@ -127,7 +127,7 @@ class WebHookTest extends TestCase
                         'timestamp' => '1625665242211',
                         'source' => [
                             'type' => 'user',
-                            'userId' => "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                            'userId' => config('test_data.userid'),
                         ],
                         'replyToken' => '757913772c4646b784d4b7ce46d12671',
                         'mode' => 'active',

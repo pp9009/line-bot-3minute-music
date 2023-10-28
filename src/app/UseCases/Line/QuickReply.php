@@ -16,7 +16,7 @@ class QuickReply
     public function invoke($event)
     {
         User::upsert(
-            ['id' => $event->offsetGet("source")->getUserId()],
+            ['id' => $event["source"]["userId"]],
             ['id'],
         );
 
@@ -26,7 +26,7 @@ class QuickReply
 
         $api = new ApiRequest();
         return $api->replyMessage(
-            $event->getReplyToken(),
+            $event["replyToken"],
             $this->buildMessage('何分の曲にするか指定してね！', $actions)
         );
     }

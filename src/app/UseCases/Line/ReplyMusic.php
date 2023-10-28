@@ -24,10 +24,10 @@ class ReplyMusic
      */
     public function invoke($event)
     {
-        User::where('id', $event->offsetGet("source")->getUserId())
+        User::where('id', $event["source"]["userId"])
             ->increment('used_count');
 
-        $request_minutes = str_replace('分', '', $event->getMessage()->getText());
+        $request_minutes = str_replace('分', '', $event['message']['text']);
         $tracks = DB::table('tracks')
             ->select('external_url')
             ->where('isrc', 'like', 'jp%')
@@ -37,12 +37,12 @@ class ReplyMusic
         $api = new ApiRequest();
         if (count($tracks->all()) > 0) {
             return $api->replyMessage(
-                $event->getReplyToken(),
+                $event["replyToken"],
                 (new TextMessage(['text' => $tracks->random()->external_url]))->setType('text')
             );
         } else {
             return $api->replyMessage(
-                $event->getReplyToken(),
+                $event["replyToken"],
                 (new TextMessage(['text' => "該当の曲が見つかりませんでした"]))->setType('text')
             );
         }
