@@ -71,8 +71,8 @@ class GetTracks
         $oneminuteToMsec = 60000;
 
         // 任意の分数 +- ALLOWANCE_MSEC を許容する
-        // 下記の値だと+-5秒を許容するため、n分55秒~n分05秒の曲を許容する
-        $allowanceMsec = 5000;
+        // 下記の値だと+-2秒を許容するため、n分58秒~n分02秒の曲を許容する
+        $allowanceMsec = 2000;
 
         for ($minute = 1; $minute <= 8; $minute++) {
             $allowanceMsecMin = $minute * $oneminuteToMsec - $allowanceMsec;
