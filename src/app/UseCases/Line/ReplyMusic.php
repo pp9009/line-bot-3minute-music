@@ -3,7 +3,9 @@
 namespace App\UseCases\Line;
 
 use Illuminate\Support\Facades\DB;
-use LINE\Clients\MessagingApi\Model\TextMessage;;
+use LINE\Clients\MessagingApi\Model\TextMessage;
+
+;
 use App\Models\User;
 use App\UseCases\Line\Share\ApiRequest;
 
