@@ -13,8 +13,8 @@ class ReplyMusic
     public const ONEMINUTE_TO_MSEC = 60000;
 
     // リクエストされた分数 +- ALLOWANCE_MSEC を許容する
-    // 下記の値で3分がリクエストされた場合 +-5秒を許容するため、2分55秒~3分05秒の曲を許容する
-    public const ALLOWANCE_MSEC = 5000;
+    // 下記の値だと、3分がリクエストされた場合 +-2秒を許容するため、2分58秒~3分02秒の曲を許容する
+    public const ALLOWANCE_MSEC = 2000;
 
     /**
      * ReplyMessageを送信する
