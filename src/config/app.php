@@ -212,4 +212,10 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+
+    // リクエストで指定された分数に対して許容範囲を設定します。
+    // この値（3000ミリ秒）は、+-3秒の範囲を許容することを表し、
+    // つまり、n分57秒からn分03秒の曲を許容する範囲内となります。
+    'allowance_msec' => 3000,
+
 ];

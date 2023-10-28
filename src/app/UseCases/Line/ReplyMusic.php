@@ -12,10 +12,6 @@ class ReplyMusic
     // 1 minute ＝ 60000 msecond
     public const ONEMINUTE_TO_MSEC = 60000;
 
-    // リクエストされた分数 +- ALLOWANCE_MSEC を許容する
-    // 下記の値だと、3分がリクエストされた場合 +-2秒を許容するため、2分58秒~3分02秒の曲を許容する
-    public const ALLOWANCE_MSEC = 2000;
-
     /**
      * ReplyMessageを送信する
      *
@@ -31,7 +27,7 @@ class ReplyMusic
         $tracks = DB::table('tracks')
             ->select('external_url')
             ->where('isrc', 'like', 'jp%')
-            ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MSEC * $request_minutes - self::ALLOWANCE_MSEC, self::ONEMINUTE_TO_MSEC * $request_minutes + self::ALLOWANCE_MSEC])
+            ->whereBetween('duration_ms', [self::ONEMINUTE_TO_MSEC * $request_minutes - config('app.allowance_msec'), self::ONEMINUTE_TO_MSEC * $request_minutes + config('app.allowance_msec')])
             ->get();
 
         $api = new ApiRequest();
