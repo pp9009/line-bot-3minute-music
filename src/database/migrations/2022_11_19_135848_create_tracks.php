@@ -19,6 +19,7 @@ return new class () extends Migration {
             $table->integer('duration_ms');
             $table->string('isrc', 255);
             $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 

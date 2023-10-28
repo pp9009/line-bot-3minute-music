@@ -5,12 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Request;
-use LINE\LINEBot;
-use LINE\LINEBot\Constant\HTTPHeader;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-use LINE\LINEBot\QuickReplyBuilder\ButtonBuilder\QuickReplyButtonBuilder;
-use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\Constants\HTTPHeader;
+use LINE\Clients\MessagingApi\Model\TextMessage;
+use App\UseCases\Line\QuickReply;
 use Database\Seeders\TrackSeeder;
 use Tests\TestCase;
 
@@ -18,7 +15,7 @@ class WebHookTest extends TestCase
 {
     use RefreshDatabase;
 
-    public const REPLY_MESSAGE_ENDPOINT = LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply';
+    public const REPLY_MESSAGE_ENDPOINT = 'https://api.line.me/v2/bot/message/reply';
 
     protected function setUp(): void
     {
@@ -28,14 +25,12 @@ class WebHookTest extends TestCase
         // 「getMusic!!」に対する返信(メッセージオブジェクト)を作成
         // https://developers.line.biz/ja/reference/messaging-api/#message-objects
         for ($i = 1; $i <= 8; $i++) {
-            $buttons[] = new QuickReplyButtonBuilder(new MessageTemplateActionBuilder($i . '分', $i . '分'));
+            $actions[] = $i . '分';
         }
-        $messageBuilder = new TextMessageBuilder('何分の曲にするか指定してね！', new QuickReplyMessageBuilder($buttons));
-        $this->messages = $messageBuilder->buildMessage();
+        $this->messages[] = (new QuickReply())->buildMessage('何分の曲にするか指定してね！', $actions);
 
         // 想定外の発話に対する返信(メッセージオブジェクト)を作成
-        $errorMessageBuilder = new TextMessageBuilder("このBOTを使う時はメニューから\nget musicをタップしてね");
-        $this->errorMessages = $errorMessageBuilder->buildMessage();
+        $this->errorMessages[] = (new TextMessage(['text' => "このBOTを使う時はメニューから\nget musicをタップしてね"]))->setType('text');
     }
 
     /**

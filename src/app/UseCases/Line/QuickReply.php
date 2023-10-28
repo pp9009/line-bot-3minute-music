@@ -25,10 +25,34 @@ class QuickReply
         }
 
         $api = new ApiRequest();
-        return $api->quickReplyMessage(
+        return $api->replyMessage(
             $event->getReplyToken(),
-            '何分の曲にするか指定してね！',
-            $actions
+            $this->buildMessage('何分の曲にするか指定してね！', $actions)
         );
+    }
+
+    public function buildMessage($text, $actions)
+    {
+        $messageObjects = [];
+
+        foreach ($actions as $item) {
+            $messageObject = [
+                'type'  => 'action',
+                'action' => [
+                    'type' => 'message',
+                    'label' => $item,
+                    'text' => $item,
+                ]
+            ];
+            $messageObjects[] = $messageObject;
+        }
+
+        return [
+            'type' => 'text',
+            'text' => $text,
+            'quickReply' => [
+                'items' => $messageObjects,
+            ],
+        ];
     }
 }

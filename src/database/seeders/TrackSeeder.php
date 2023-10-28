@@ -22,6 +22,7 @@ class TrackSeeder extends Seeder
             'duration_ms' => 60000 * 3,
             'isrc' => 'jp' . Str::random(10),
             'created_at' => '2000-01-01 00:00:00',
+            'updated_at' => '2000-01-01 00:00:00',
         ]);
     }
 }
