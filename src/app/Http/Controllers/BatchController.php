@@ -10,7 +10,6 @@ class BatchController extends Controller
     {
         Artisan::call('command:getTracks');
         Artisan::call('command:deleteTracks');
-        // 処理が完了したらレスポンスを返す
         return response('Batch process completed', 200);
     }
 }
