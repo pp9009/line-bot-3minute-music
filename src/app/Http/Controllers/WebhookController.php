@@ -34,6 +34,7 @@ class WebhookController extends Controller
                     );
                     sleep(8);
                 }
+                return response('Hello World', 200);
             } catch (\Exception $e) {
                 $api = new ApiRequest();
                 $api->replyMessage(
@@ -42,10 +43,9 @@ class WebhookController extends Controller
                 );
                 throw $e;
             }
-
-            // renderはcronが有料のためrequest毎にバッチを実行
-            Artisan::call('command:getTracks');
-            Artisan::call('command:deleteTracks');
         }
+        // renderはcronが有料のためrequest毎にバッチを実行
+        Artisan::call('command:getTracks');
+        Artisan::call('command:deleteTracks');
     }
 }
