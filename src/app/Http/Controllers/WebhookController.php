@@ -27,14 +27,13 @@ class WebhookController extends Controller
                     $usecase = new ReplyMusic();
                     $usecase->invoke($event);
                 } else {
-                    sleep(8);
                     $api = new ApiRequest();
                     $api->replyMessage(
                         $event->getReplyToken(),
                         (new TextMessage(['text' => "このBOTを使う時はメニューから\nget musicをタップしてね"]))->setType('text')
                     );
                 }
-                // return response('Hello World', 200);
+                return response('Hello World', 200);
             } catch (\Exception $e) {
                 $api = new ApiRequest();
                 $api->replyMessage(
