@@ -9,7 +9,6 @@ use LINE\Parser\EventRequestParser;
 use App\UseCases\Line\QuickReply;
 use App\UseCases\Line\ReplyMusic;
 use App\UseCases\Line\Share\ApiRequest;
-use Artisan;
 
 class WebhookController extends Controller
 {
@@ -33,7 +32,6 @@ class WebhookController extends Controller
                         (new TextMessage(['text' => "このBOTを使う時はメニューから\nget musicをタップしてね"]))->setType('text')
                     );
                 }
-                // return response('Hello World', 200);
             } catch (\Exception $e) {
                 $api = new ApiRequest();
                 $api->replyMessage(
@@ -43,8 +41,5 @@ class WebhookController extends Controller
                 throw $e;
             }
         }
-        // renderはcronが有料のためrequest毎にバッチを実行
-        Artisan::call('command:getTracks');
-        Artisan::call('command:deleteTracks');
     }
 }

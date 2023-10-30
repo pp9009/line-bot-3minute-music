@@ -3,10 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebhookController;
-use App\Http\Controllers\SpotifyController;
-use LINE\LINEBot;
-use LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use LINE\LINEBot\Constant\HTTPHeader;
+use App\Http\Controllers\BatchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +16,5 @@ use LINE\LINEBot\Constant\HTTPHeader;
 |
 */
 
-Route::middleware(['signature'])->post('/webhook', [WebhookController::class,'index']);
+Route::middleware(['signature'])->post('/webhook', [WebhookController::class, 'index']);
+Route::get('/batch', [BatchController::class, 'index']);
