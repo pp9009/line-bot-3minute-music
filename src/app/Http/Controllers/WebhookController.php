@@ -32,6 +32,7 @@ class WebhookController extends Controller
                         $event->getReplyToken(),
                         (new TextMessage(['text' => "このBOTを使う時はメニューから\nget musicをタップしてね"]))->setType('text')
                     );
+                    sleep(8);
                 }
             } catch (\Exception $e) {
                 $api = new ApiRequest();
