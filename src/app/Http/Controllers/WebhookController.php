@@ -34,7 +34,7 @@ class WebhookController extends Controller
                     );
                     sleep(8);
                 }
-                return response('Hello World', 200);
+                // return response('Hello World', 200);
             } catch (\Exception $e) {
                 $api = new ApiRequest();
                 $api->replyMessage(
