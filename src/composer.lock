@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8486039793a0aa022f810516c2bdfc81",
+    "content-hash": "0a62dc303ee7be3eedfe144ee8611d97",
     "packages": [
         {
             "name": "brick/math",
@@ -1946,16 +1946,16 @@
         },
         {
             "name": "linecorp/line-bot-sdk",
-            "version": "9.3.0",
+            "version": "9.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/line/line-bot-sdk-php.git",
-                "reference": "2c0e9cbeea6cff4e1b7688788e61f5024055b088"
+                "reference": "7456955a07db752ce4cc50d92b2413f7742eab87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/2c0e9cbeea6cff4e1b7688788e61f5024055b088",
-                "reference": "2c0e9cbeea6cff4e1b7688788e61f5024055b088",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/7456955a07db752ce4cc50d92b2413f7742eab87",
+                "reference": "7456955a07db752ce4cc50d92b2413f7742eab87",
                 "shasum": ""
             },
             "require": {
@@ -1967,10 +1967,10 @@
                 "guzzlehttp/guzzle": "^7.3",
                 "guzzlehttp/psr7": "^1.7 || ^2.0",
                 "orchestra/testbench": "*",
-                "phpmd/phpmd": "2.13.0",
+                "phpmd/phpmd": "2.15.0",
                 "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^10.2",
-                "squizlabs/php_codesniffer": "3.7.2"
+                "squizlabs/php_codesniffer": "3.8.0"
             },
             "type": "library",
             "extra": {
@@ -2037,9 +2037,9 @@
             ],
             "support": {
                 "issues": "https://github.com/line/line-bot-sdk-php/issues",
-                "source": "https://github.com/line/line-bot-sdk-php/tree/9.3.0"
+                "source": "https://github.com/line/line-bot-sdk-php/tree/9.4.4"
             },
-            "time": "2023-09-15T02:25:22+00:00"
+            "time": "2023-12-25T04:59:36+00:00"
         },
         {
             "name": "monolog/monolog",
