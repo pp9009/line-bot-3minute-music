@@ -46,16 +46,19 @@ class SpotifyApi
         $str = 'abcdefghijklmnopqrstuvwxyz';
         $shuffled_str = substr(str_shuffle($str), 0, 1);
 
-        $num = '01';
+        $num = '012';
         $shuffled_num = substr(str_shuffle($num), 0, 1);
 
         $random_query = '';
         switch ($shuffled_num) {
             case 0:
-                $random_query = $shuffled_str . '%';
+                $random_query = $shuffled_str . '*';
                 break;
             case 1:
-                $random_query = '%' . $shuffled_str . '%';
+                $random_query = '*' . $shuffled_str . '*';
+                break;
+            case 2:
+                $random_query = '*' . $shuffled_str;
                 break;
         }
         return $random_query;

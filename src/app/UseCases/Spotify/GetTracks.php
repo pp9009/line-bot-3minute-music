@@ -85,7 +85,7 @@ class GetTracks
 
     private function isIsrcJp($isrc)
     {
-        if (substr($isrc, 0, 2) === 'JP') {
+        if (strpos($isrc, 'JP') !== false) {
             return true;
         }
         return false;
