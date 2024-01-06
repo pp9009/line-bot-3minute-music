@@ -61,4 +61,4 @@ $ php artisan key:generate
 ```
 $ php artisan schedule:work
 ```
-5. LINE BOTに「getMusic!!」を発話
+5. [「Webhookの設定」](#webhookの設定)で設定した LINE BOTに「getMusic!!」を発話
