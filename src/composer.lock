@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c6597449e36e7ed8a1a3ea8e9795607",
+    "content-hash": "ad13e1998e5eb119c76f25ee9a23c14a",
     "packages": [
         {
             "name": "brick/math",
@@ -1946,16 +1946,16 @@
         },
         {
             "name": "linecorp/line-bot-sdk",
-            "version": "9.5.0",
+            "version": "9.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/line/line-bot-sdk-php.git",
-                "reference": "7a7529e0d89e9412afa4849cbae5ade529484cfb"
+                "reference": "a56b11adc87d564a89b9865fe38c63892588e3d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/7a7529e0d89e9412afa4849cbae5ade529484cfb",
-                "reference": "7a7529e0d89e9412afa4849cbae5ade529484cfb",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/a56b11adc87d564a89b9865fe38c63892588e3d7",
+                "reference": "a56b11adc87d564a89b9865fe38c63892588e3d7",
                 "shasum": ""
             },
             "require": {
@@ -1970,7 +1970,7 @@
                 "phpmd/phpmd": "2.15.0",
                 "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^10.2",
-                "squizlabs/php_codesniffer": "3.8.0"
+                "squizlabs/php_codesniffer": "3.8.1"
             },
             "type": "library",
             "extra": {
@@ -2037,9 +2037,9 @@
             ],
             "support": {
                 "issues": "https://github.com/line/line-bot-sdk-php/issues",
-                "source": "https://github.com/line/line-bot-sdk-php/tree/9.5.0"
+                "source": "https://github.com/line/line-bot-sdk-php/tree/9.7.0"
             },
-            "time": "2023-12-27T06:59:24+00:00"
+            "time": "2024-02-06T05:58:12+00:00"
         },
         {
             "name": "monolog/monolog",
