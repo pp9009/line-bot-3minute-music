@@ -9,7 +9,6 @@ use App\UseCases\Line\ReplyMusic;
 use App\UseCases\Line\Share\ApiRequest;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\TrackSeeder;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReplyMusicTest extends TestCase
