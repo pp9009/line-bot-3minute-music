@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72f7db63ab29e8251b452500d620777b",
+    "content-hash": "991b1fead6e4e5d8b5ae898c66c5d649",
     "packages": [
         {
             "name": "brick/math",
@@ -1942,16 +1942,16 @@
         },
         {
             "name": "linecorp/line-bot-sdk",
-            "version": "v10.0.1",
+            "version": "v10.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/line/line-bot-sdk-php.git",
-                "reference": "c902425967f0e4fcebbe6ea23dde6a5deefb49d5"
+                "reference": "5538dceed6f066f4562a1c2858bbda1a60a16aae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/c902425967f0e4fcebbe6ea23dde6a5deefb49d5",
-                "reference": "c902425967f0e4fcebbe6ea23dde6a5deefb49d5",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/5538dceed6f066f4562a1c2858bbda1a60a16aae",
+                "reference": "5538dceed6f066f4562a1c2858bbda1a60a16aae",
                 "shasum": ""
             },
             "require": {
@@ -2033,9 +2033,9 @@
             ],
             "support": {
                 "issues": "https://github.com/line/line-bot-sdk-php/issues",
-                "source": "https://github.com/line/line-bot-sdk-php/tree/v10.0.1"
+                "source": "https://github.com/line/line-bot-sdk-php/tree/v10.0.2"
             },
-            "time": "2025-01-15T08:50:29+00:00"
+            "time": "2025-01-20T02:42:41+00:00"
         },
         {
             "name": "monolog/monolog",
